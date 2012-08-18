@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Portfolio:</b>
+  <%= Portfolio.find_by_id(@holding.portfolio_id).name %>
+</p>
+
+<p>
+  <b>Security:</b>
+  <%= "#{Security.find_by_id(@holding.security_id).name} (#{Security.find_by_id(@holding.security_id).symbol})" %>
+</p>
+
+<p>
+  <b>Shares held:</b>
+  <%= @holding.shares_held %>
+</p>
+
+<%= link_to 'Edit', edit_holding_path(@holding) %> |
+<%= link_to 'Back', holdings_path %>

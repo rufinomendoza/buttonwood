@@ -1,0 +1,31 @@
+<h1>Listing holdings</h1>
+
+<table>
+  <tr>
+    <th>Portfolio</th>
+    <th>Security</th>
+    <th align=right>Shares held</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @holdings.each do |holding| %>
+  <tr>
+    <td>
+      <b>
+        <%= Portfolio.find_by_id(holding.portfolio_id).name %>
+      </b>
+    </td>
+    <td><%= "#{Security.find_by_id(holding.security_id).name} (#{Security.find_by_id(holding.security_id).symbol})" %></td>
+    <td align=right><%= holding.shares_held %></td>
+    <td><%= link_to 'Show', holding %></td>
+    <td><%= link_to 'Edit', edit_holding_path(holding) %></td>
+    <td><%= link_to 'Destroy', holding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Holding', new_holding_path %>

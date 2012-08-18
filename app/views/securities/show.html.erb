@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @security.name %>
+</p>
+
+<p>
+  <b>Symbol:</b>
+  <%= @security.symbol %>
+</p>
+
+
+<%= link_to 'Edit', edit_security_path(@security) %> |
+<%= link_to 'Back', securities_path %>

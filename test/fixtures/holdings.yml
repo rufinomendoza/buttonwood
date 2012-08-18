@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  portfolio_id: 1
+  security_id: 1
+  shares_held: 1.5
+
+two:
+  portfolio_id: 1
+  security_id: 1
+  shares_held: 1.5
