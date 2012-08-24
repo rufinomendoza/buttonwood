@@ -1,6 +1,6 @@
 require 'json'
 require 'net/http'
-require 'BigDecimal'
+require 'bigdecimal'
 
 class Holding < ActiveRecord::Base
   attr_accessible :portfolio_id, :security_id, :shares_held
