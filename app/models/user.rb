@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 
   has_many :portfolios
+  has_many :securities
 
   def self.authenticate(email, password)
     user = find_by_email(email)

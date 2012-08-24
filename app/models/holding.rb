@@ -7,6 +7,7 @@ class Holding < ActiveRecord::Base
   belongs_to :portfolio
   belongs_to :security
   validates :security_id, :uniqueness => { :scope => :portfolio_id }
+  validates :shares_held, :presence => true
 
   def summary
       @summary ||= retrieve_from_yahoo

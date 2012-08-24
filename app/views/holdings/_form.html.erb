@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :security_id %><br />
-    <%= f.collection_select :security_id, Security.all, :id, :symbol, :include_blank => false %>
+    <%= f.collection_select :security_id, Security.where("user_id = ?", current_user.id), :id, :symbol, :include_blank => false %>
   </div>
   <div class="field">
     <%= f.label :shares_held %><br />

@@ -1,6 +1,7 @@
 class CreateSecurities < ActiveRecord::Migration
   def change
     create_table :securities do |t|
+      t.integer :user_id
       t.string :our_sector
       t.string :symbol
       t.float :our_price_target

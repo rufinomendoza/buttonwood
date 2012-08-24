@@ -2,7 +2,7 @@ class SecuritiesController < ApplicationController
   # GET /securities
   # GET /securities.json
   def index
-    @securities = Security.all
+    @securities = Security.where("user_id = ?", current_user.id)
   end
 
   # GET /securities/1
@@ -26,7 +26,7 @@ class SecuritiesController < ApplicationController
   # POST /securities.json
   def create
     @security = Security.new(params[:security])
-
+    @security.user_id = current_user.id
     respond_to do |format|
       if @security.save
         format.html { redirect_to @security, notice: 'Security was successfully created.' }

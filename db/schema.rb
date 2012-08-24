@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20120824221942) do
   end
 
   create_table "securities", :force => true do |t|
+    t.integer  "user_id"
     t.string   "our_sector"
     t.string   "symbol"
     t.float    "our_price_target"
