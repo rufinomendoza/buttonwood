@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :portfolio_id %><br />
-    <%= f.collection_select :portfolio_id, Portfolio.all, :id, :name, :include_blank => false %>
+    <%= f.collection_select :portfolio_id, Portfolio.where("user_id = ?", current_user.id), :id, :name, :include_blank => false %>
   </div>
   <div class="field">
     <%= f.label :security_id %><br />

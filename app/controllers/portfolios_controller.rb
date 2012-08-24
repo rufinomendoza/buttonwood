@@ -2,8 +2,7 @@ class PortfoliosController < ApplicationController
   # GET /portfolios
   # GET /portfolios.json
   def index
-    @portfolios = Portfolio.all
-
+    @portfolios = Portfolio.where("user_id = ?", current_user.id)
   end
 
   # GET /portfolios/1
@@ -27,9 +26,7 @@ class PortfoliosController < ApplicationController
   # POST /portfolios.json
   def create
     @portfolio = Portfolio.new(params[:portfolio])
-    #raise params.inspect
-    #@current_user.id
-    
+    @portfolio.user_id = current_user.id
     respond_to do |format|
       if @portfolio.save
         format.html { redirect_to @portfolio, notice: 'Portfolio was successfully created.' }

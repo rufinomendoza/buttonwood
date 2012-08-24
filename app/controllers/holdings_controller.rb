@@ -2,11 +2,7 @@ class HoldingsController < ApplicationController
   # GET /holdings
   # GET /holdings.json
   def index
-    @holdings = Holding.all
-  end
-
-  def kpi
-    @holdings = Holding.all
+    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id) 
   end
 
   # GET /holdings/1

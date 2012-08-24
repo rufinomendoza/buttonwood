@@ -5,6 +5,9 @@
   <%= @portfolio.name %>
 </p>
 
+<p><b>Investment Policy Statement:</b><br />
+<%= @portfolio.ips %>
+</p>
 
 <%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
 <%= link_to 'Back', portfolios_path %>

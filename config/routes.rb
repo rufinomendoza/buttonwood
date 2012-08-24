@@ -4,7 +4,7 @@ ButtonwoodTwo::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   #root :to => 'holdings#index'
   root :to => 'holdings#index'
-  resources :users
+
   resources :sessions
   
   resources :holdings
