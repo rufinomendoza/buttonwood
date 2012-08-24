@@ -8,6 +8,7 @@ gem 'rails', '3.2.8'
 #gem 'sqlite3'
 # this is replaced by pg for heroku
 gem 'pg'
+gem 'thin'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Gems used only for assets and not required
