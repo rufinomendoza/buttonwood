@@ -5,6 +5,10 @@ class HoldingsController < ApplicationController
     @holdings = Holding.all
   end
 
+  def kpi
+    @holdings = Holding.all
+  end
+
   # GET /holdings/1
   # GET /holdings/1.json
   def show

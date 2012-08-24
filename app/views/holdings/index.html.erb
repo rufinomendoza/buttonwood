@@ -1,5 +1,4 @@
 <h1>Portfolio Summary</h1>
-<%= link_to 'Portfolio Detail Fix This', new_holding_path %>
 <% array = [] %>
 <% @holdings.each do |holding| %>
 <% array << holding.dollar_value %>
@@ -11,12 +10,12 @@
     <th>Portfolio</th>
     <th>Name</th>
     <th>Symbol</th>
-    <th>Shares held</th>
-    <th>Last price</th>
-    <th>Portfolio value</th>
-    <th>Portfolio weight</th>
+    <th>Shares</th>
+    <th>Price</th>
+    <th>Pct Change</th>
+    <th>Value</th>
+    <th>Weight</th>
 
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -37,20 +36,24 @@
       <%= holding.currency_dec(result) %>
     </td>
     <td align=right>
+      <% result = holding.indicator("PercentChange").to_f %>
+      <%= holding.percent_dec(result) %>
+    </td>
+    <td align=right>
       <%= holding.dollar_value_currency %>
     </td>
     <td align=right>
       <% result = holding.dollar_value/assets*100 %>
       <%= holding.percent_dec(result) %>
     </td>
-    <td><%= link_to 'Show', holding %></td>
     <td><%= link_to 'Edit', edit_holding_path(holding) %></td>
-    <td><%= link_to 'Destroy', holding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', holding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 
 <tr>
   <td><b>Total</b></td>
+  <td></td>
   <td></td>
   <td></td>
   <td></td>
@@ -65,6 +68,8 @@
 
 <%= link_to 'New Holding', new_holding_path %>
 <br />
+<%= render 'kpi' %>
+
 <hr />
 <%= link_to 'Financial Summary', holdings_path %>
 <%= link_to 'Edit Portfolios', portfolios_path %>

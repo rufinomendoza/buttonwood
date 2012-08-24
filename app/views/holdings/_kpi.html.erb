@@ -1,0 +1,33 @@
+<h1>Key Indicators</h1>
+<% array = [] %>
+<% @holdings.each do |holding| %>
+<% array << holding.dollar_value %>
+<% end %>
+<% assets = array.sum %>
+
+<table>
+  <tr>
+    <th>Symbol</th>
+    <th>Weight</th>
+  </tr>
+
+<% @holdings.each do |holding| %>
+  <tr>
+    <td><%= "#{Security.find_by_id(holding.security_id).symbol}" %></td>
+    <td align=right>
+      <% result = holding.dollar_value/assets*100 %>
+      <%= holding.percent_dec(result) %>
+    </td>
+  </tr>
+<% end %>
+
+<tr>
+  <td><b>Total</b></td>
+  <td align=right><b><%= ActionController::Base.helpers.number_to_percentage(assets/assets*100, :precision => 2) %></b></td>
+  </tr>
+
+</table>
+
+<br />
+
+<%= link_to 'New Holding', new_holding_path %>
