@@ -26,7 +26,6 @@ class HoldingsController < ApplicationController
   # POST /holdings.json
   def create
     @holding = Holding.new(params[:holding])
-
     respond_to do |format|
       if @holding.save
         format.html { redirect_to @holding, notice: 'Holding was successfully created.' }

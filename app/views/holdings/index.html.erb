@@ -1,10 +1,21 @@
-<h1>Listing holdings</h1>
+<h1>Portfolio Summary</h1>
+<%= link_to 'Portfolio Detail', 'holdings#kpi' %>
+<% array = [] %>
+<% @holdings.each do |holding| %>
+<% array << holding.dollar_value %>
+<% end %>
+<% assets = array.sum %>
 
 <table>
   <tr>
     <th>Portfolio</th>
-    <th>Security</th>
-    <th align=right>Shares held</th>
+    <th>Name</th>
+    <th>Symbol</th>
+    <th>Shares held</th>
+    <th>Last price</th>
+    <th>Portfolio value</th>
+    <th>Portfolio weight</th>
+
     <th></th>
     <th></th>
     <th></th>
@@ -13,17 +24,41 @@
 <% @holdings.each do |holding| %>
   <tr>
     <td>
-      <b>
-        <%= Portfolio.find_by_id(holding.portfolio_id).name %>
-      </b>
+      <b><%= Portfolio.find_by_id(holding.portfolio_id).name %></b>
     </td>
-    <td><%= "#{Security.find_by_id(holding.security_id).name} (#{Security.find_by_id(holding.security_id).symbol})" %></td>
-    <td align=right><%= holding.shares_held %></td>
+    <td><%= holding.indicator("Name") %></td>
+    <td><%= "#{Security.find_by_id(holding.security_id).symbol}" %></td>
+    <td align=right>
+      <% result = holding.shares_held.to_f %>
+      <%= holding.commas(result) %>
+    </td>
+    <td align=right>
+      <% result = holding.indicator("LastTradePriceOnly").to_f %>
+      <%= holding.currency_dec(result) %>
+    </td>
+    <td align=right>
+      <%= holding.dollar_value_currency %>
+    </td>
+    <td align=right>
+      <% result = holding.dollar_value/assets*100 %>
+      <%= holding.percent_dec(result) %>
+    </td>
     <td><%= link_to 'Show', holding %></td>
     <td><%= link_to 'Edit', edit_holding_path(holding) %></td>
     <td><%= link_to 'Destroy', holding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
+
+<tr>
+  <td><b>Total</b></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td align=right><b><%= ActionController::Base.helpers.number_to_currency(assets, :unit => "$", :precision => 0) %></b></td>
+  <td align=right><b><%= ActionController::Base.helpers.number_to_percentage(assets/assets*100, :precision => 2) %></b></td>
+  </tr>
+
 </table>
 
 <br />

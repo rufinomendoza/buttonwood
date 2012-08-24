@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   before_filter :require_login
-  
+
   private
   
   def current_user
