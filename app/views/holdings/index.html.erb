@@ -6,7 +6,7 @@
 <% assets = array.sum %>
 
 <table>
-  <tr>
+  <tr align=left>
     <th>Portfolio</th>
     <th>Name</th>
     <th>Symbol</th>
@@ -23,10 +23,10 @@
 <% @holdings.each do |holding| %>
   <tr>
     <td>
-      <b><%= Portfolio.find_by_id(holding.portfolio_id).name %></b>
+      <b><%= holding.portfolio_name %></b>
     </td>
     <td><%= holding.indicator("Name") %></td>
-    <td><%= "#{Security.find_by_id(holding.security_id).symbol}" %></td>
+    <td><%= holding.symbol %></td>
     <td align=right>
       <% result = holding.shares_held.to_f %>
       <%= holding.commas(result) %>
@@ -64,10 +64,10 @@
 
 </table>
 
+<%= link_to 'New Holding', new_holding_path %>
+
 <br />
 
-<%= link_to 'New Holding', new_holding_path %>
-<br />
 <%= render 'kpi' %>
 
 <hr />

@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @security.name %>
+  <b>Our Sector:</b>
+  <%= @security.our_sector %>
 </p>
 
 <p>
@@ -10,6 +10,13 @@
   <%= @security.symbol %>
 </p>
 
+
+<p>
+  <b>Internal Forecasts:</b><br />
+  Price Target <%= @security.our_price_target %><br />
+  Current Year EPS <%= @security.our_current_year_eps %><br />
+  Next Year EPS <%= @security.our_next_year_eps %><br />
+</p>
 
 <%= link_to 'Edit', edit_security_path(@security) %> |
 <%= link_to 'Back', securities_path %>
