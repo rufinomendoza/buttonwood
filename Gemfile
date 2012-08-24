@@ -6,9 +6,9 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-group :development, :test do gem 'sqlite3-ruby', :require => 'sqlite3' end
+#group :development, :test do gem 'sqlite3-ruby', :require => 'sqlite3' end
 # sqlite3 this is replaced by pg for heroku
-# gem 'pg'
+gem 'pg'
 # gem 'thin'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
