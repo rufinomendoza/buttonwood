@@ -27,7 +27,7 @@ class PortfoliosController < ApplicationController
   # POST /portfolios.json
   def create
     @portfolio = Portfolio.new(params[:portfolio])
-    raise params.inspect
+    #raise params.inspect
     #@current_user.id
     
     respond_to do |format|
