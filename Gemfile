@@ -5,10 +5,10 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
-# group :development, :test do gem 'sqlite3-ruby', :require => 'sqlite3' end
+gem 'sqlite3'
 # sqlite3 this is replaced by pg for heroku
-gem 'pg'
+# and add thin gem as well as Procfile
+# gem 'pg'
 # gem 'thin'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
