@@ -6,6 +6,7 @@ class Holding < ActiveRecord::Base
   attr_accessible :portfolio_id, :security_id, :shares_held
   belongs_to :portfolio
   belongs_to :security
+  validates :security_id, :uniqueness => { :scope => :portfolio_id }
 
   def summary
       @summary ||= retrieve_from_yahoo
@@ -29,6 +30,34 @@ class Holding < ActiveRecord::Base
     value = indicator("LastTradePriceOnly").to_f * shares_held.to_f
   end
 
+  # Importing these Security methods into Holding model
+
+  def our_sector
+    security.our_sector
+  end
+
+  def symbol
+    security.symbol
+  end
+
+  def our_price_target
+    currency_dec(security.our_price_target)
+  end
+
+  def our_current_year_eps
+    commas_dec(security.our_current_year_eps)
+  end
+
+  def our_next_year_eps
+    commas_dec(security.our_next_year_eps)
+  end
+
+  def portfolio_name
+    portfolio.name
+  end
+
+  # Formatting Methods
+
   def currency(n)
     ActionController::Base.helpers.number_to_currency(n, :unit => "$", :precision => 0)
   end
@@ -39,20 +68,24 @@ class Holding < ActiveRecord::Base
 
   def commas(n)
     ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 0)
-  end  
+  end
+  
+  def commas_dec(n)
+    ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 2)
+  end
 
   def percent_dec(n)
     ActionController::Base.helpers.number_to_percentage(n, :precision => 2)
   end
 
-  def asset_total
-    array = []
-    @holdings.each do |holding|
-      array << holding.dollar_value
-    end
-    assets = array.sum
-    asset_total = number_to_currency(assets)
-  end
+  # def asset_total
+  #   array = []
+  #   @holdings.each do |holding|
+  #     array << holding.dollar_value
+  #   end
+  #   assets = array.sum
+  #   asset_total = number_to_currency(assets)
+  # end
 
   private
 

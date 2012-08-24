@@ -33,10 +33,13 @@ ActiveRecord::Schema.define(:version => 20120818212101) do
   end
 
   create_table "securities", :force => true do |t|
-    t.string   "name"
+    t.string   "our_sector"
     t.string   "symbol"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.float    "our_price_target"
+    t.float    "our_current_year_eps"
+    t.float    "our_next_year_eps"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "users", :force => true do |t|
