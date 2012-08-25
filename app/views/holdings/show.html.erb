@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Portfolio:</b>
   <%= Portfolio.find_by_id(@holding.portfolio_id).name %>
@@ -15,5 +13,5 @@
   <%= @holding.shares_held %>
 </p>
 
-<%= link_to 'Edit', edit_holding_path(@holding) %> |
-<%= link_to 'Back', holdings_path %>
+<%= link_to 'Edit', edit_holding_path(@holding), class: "btn btn-small" %>
+<%= link_to 'Back', holdings_path, class: "btn btn-small" %>

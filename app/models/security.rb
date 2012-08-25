@@ -5,6 +5,8 @@ class Security < ActiveRecord::Base
   has_many :portfolios, :through => :holdings, :dependent => :destroy
 
   validates :symbol, :uniqueness => { :scope => :user_id, :case_sensitive => false }
+  validates :our_sector, :presence => true
   validates :our_price_target, :presence => true
+
   
 end

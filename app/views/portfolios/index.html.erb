@@ -1,28 +1,24 @@
-<h1>Listing portfolios</h1>
+<h1>Portfolios</h1>
 
-<table class="table">
+<table class="table table-condensed table-hover">
+  <thead>
   <tr>
     <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3"></th>
   </tr>
+  </thead>
 
+<tbody>
 <% @portfolios.each do |portfolio| %>
   <tr>
     <td><%= portfolio.name %></td>
-    <td><%= link_to 'Show', portfolio %></td>
-    <td><%= link_to 'Edit', edit_portfolio_path(portfolio) %></td>
-    <td><%= link_to 'Destroy', portfolio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Details', portfolio, :class => "btn btn-mini" %></td>
+    <td><%= link_to 'Edit', edit_portfolio_path(portfolio), :class => "btn btn-mini"  %></td>
+    <td><%= link_to 'Liquidate', portfolio, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger"%></td>
   </tr>
 <% end %>
+</tbody>
 </table>
 
+<%= link_to 'Add Portfolio', new_portfolio_path, :class => "btn btn-mini btn-success pull-left" %>
 <br />
-
-<%= link_to 'New Portfolio', new_portfolio_path %>
-<br />
-<hr />
-<%= link_to 'Financial Summary', holdings_path %>
-<%= link_to 'Edit Portfolios', portfolios_path %>
-<%= link_to 'Edit Securities', securities_path %>

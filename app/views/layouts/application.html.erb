@@ -3,51 +3,52 @@
 
   <head>
     <title>Project Buttonwood</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
+    <%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+    <%= javascript_include_tag "bootstrap" %>
+    <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <header class="navbar navbar-fixed-top">
+  <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <nav>
-          <ul class="nav pull-left">
-            <li><%= link_to 'Summary', holdings_path %></li>
-            <li><%= link_to 'Portfolios', portfolios_path %></li>
-            <li><%= link_to 'Securities', securities_path %></li>
-          </ul>
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <%= link_to "Buttonwood", root_path, :class => "brand" %>
+        <div class="nav-collapse">
           <ul class="nav pull-right">
+            <li><%= link_to 'Summary', holdings_path %></li>
+            <li> </li>
+            <li><%= link_to 'Portfolios', portfolios_path %></li>
+            <li><%= link_to 'Coverage', securities_path %></li>
             <% if current_user %>
-              <li><%= link_to "Log out", log_out_path %></li>
+            <li><%= link_to "Log out", log_out_path %></li>
             <% else %>
-              <li><%= link_to "Sign up", sign_up_path %></li>
-              <li><%= link_to "Log in", log_in_path %></li>
+            <li><%= link_to "Sign up", sign_up_path %></li>
+            <li><%= link_to "Log in", log_in_path %></li>
             <% end %>
           </ul>
-        </nav>
+        </div>
       </div>
     </div>
-    </header>
+  </div>
 
 
     <div class="container">
 
       <% if current_user %>
-          <p align="right">Logged in as <%= current_user.email %></p>
-        <% else %>
+        <p align="right">Logged in as <%= current_user.email %></p>
+      <% else %>
       <% end %>
 
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash#{name}" %>
-      <% end %>
+      <%= render 'layouts/flash_messages' %>
 
-      <br />
       <%= yield %>
     </div>
 

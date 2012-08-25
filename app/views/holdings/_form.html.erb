@@ -1,7 +1,7 @@
 <%= form_for(@holding) do |f| %>
   <% if @holding.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@holding.errors.count, "error") %> prohibited this holding from being saved:</h2>
+    <div class="alert alert-block alert-error">
+      <h4><%= pluralize(@holding.errors.count, "error") %> prohibited this holding from being saved:</h4>
 
       <ul>
       <% @holding.errors.full_messages.each do |msg| %>

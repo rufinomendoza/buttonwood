@@ -33,7 +33,7 @@ class Holding < ActiveRecord::Base
 
   # More Complicated Methods
   def premium
-    percent_dec((security.our_price_target.to_f/indicator("LastTradePriceOnly").to_f-1)*100)
+    percent_dec((indicator("LastTradePriceOnly").to_f/security.our_price_target.to_f-1)*100)
   end
 
   # Importing these Security methods into Holding model

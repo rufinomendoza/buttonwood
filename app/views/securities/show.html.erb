@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <b>Our Sector:</b>
   <%= @security.our_sector %>
@@ -18,5 +16,5 @@
   Next Year EPS <%= @security.our_next_year_eps %><br />
 </p>
 
-<%= link_to 'Edit', edit_security_path(@security) %> |
-<%= link_to 'Back', securities_path %>
+<%= link_to 'Edit', edit_security_path(@security), class: "btn btn-small" %>
+<%= link_to 'Back', securities_path, class: "btn btn-small" %>
