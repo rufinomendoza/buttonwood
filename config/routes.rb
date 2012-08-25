@@ -1,4 +1,5 @@
 ButtonwoodTwo::Application.routes.draw do
+
   get "log_out" => "sessions#destroy", :as => "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
@@ -10,6 +11,7 @@ ButtonwoodTwo::Application.routes.draw do
   resources :holdings
   resources :securities
   resources :portfolios
+  resources :password_resets
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
