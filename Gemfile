@@ -10,7 +10,6 @@ gem 'sqlite3'
 # and add thin gem as well as Procfile
 # gem 'pg'
 # gem 'thin'
-gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,6 +24,12 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+
+# gems specific to this project
+gem 'bcrypt-ruby', :require => 'bcrypt'
+# gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

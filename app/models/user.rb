@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
 
-  has_many :portfolios
-  has_many :securities
+  has_many :portfolios, :dependent => :destroy
+  has_many :securities, :dependent => :destroy
   before_create { generate_token(:auth_token) }
 
   def send_password_reset

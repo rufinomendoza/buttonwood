@@ -1,42 +1,81 @@
 <h1>Key Indicators</h1>
+
 <% array = [] %>
 <% @holdings.each do |holding| %>
 <% array << holding.dollar_value %>
 <% end %>
 <% assets = array.sum %>
 
-<table>
+<table class="table table-condensed">
+
+  <thead>
+
   <tr>
-    <th colspan = "3"></th>
-    <th colspan = "3" style="border-bottom:1px solid black;">Internal Forecasts</th>
+    <th colspan = "8"></th>
+    <th colspan = "2" style="text-align:center; border-bottom:1px solid;">Consensus</th>
+    <th></th>
+    <th colspan = "3" style="text-align:center; border-bottom:1px solid;">Internal Forecasts</th>
+    <th></th>
   </tr>
 
-  <tr align=left>
+  <tr>
     <th>Sector</th>
     <th>Symbol</th>
     <th>Weight</th>
-    <th>Price Target</th>
-    <th>Current Year EPS</th>
-    <th>Next Year EPS</th>
+    <th>Price</th>
+    <th>Target</th>
+    <th>Premium</th>
+    <th>DPS</th>
+    <th>EPS</th>
+    <th>FY1 EPS</th>
+    <th>FY2 EPS</th>
+    <th> </th>
+    <th>FY1 EPS</th>
+    <th>FY2 EPS</th>
+    
   </tr>
 
-<% @holdings.each do |holding| %>
+  </thead>
+
+  <tbody>
+
+  <% @holdings.each do |holding| %>
   <tr>
     <td><%= holding.our_sector %></td>
-    <td><%= holding.symbol %></td>
-    <td align=right>
+    <td><%= holding.symbol.upcase %></td>
+    
+    <td style="text-align:right">
       <% result = holding.dollar_value/assets*100 %>
       <%= holding.percent_dec(result) %>
     </td>
-    <td align=right><%= holding.our_price_target %></td>
-    <td align=right><%= holding.our_current_year_eps %></td>
-    <td align=right><%= holding.our_next_year_eps %></td>
-  </tr>
-<% end %>
+    <td style="text-align:right">
+      <% result = holding.indicator("LastTradePriceOnly").to_f %>
+      <%= holding.currency_dec(result) %>
+    </td>
+    <td style="text-align:right"><%= holding.our_price_target %></td>
+    <td style="text-align:right"><%= holding.premium %></td>
 
-<tr>
-  <td><b>Total</b></td>
-  <td align=right><b><%= ActionController::Base.helpers.number_to_percentage(assets/assets*100, :precision => 2) %></b></td>
+    <% holding.key_indicators_p_sh.each do |indicator| %>
+    <td><%= holding.currency_dec(holding.indicator(indicator)) %>
+
+    </td>
+    <% end %>
+    
+    <td style="text-align:right"><%= holding.our_current_year_eps %></td>
+    <td style="text-align:right"><%= holding.our_next_year_eps %></td>
+    <td> </td>
   </tr>
+  <% end %>
+
+  <tr>
+    <td><b>Total</b></td>
+    <td></td>
+    <td style="text-align:right"><b><%= ActionController::Base.helpers.number_to_percentage(assets/assets*100, :precision => 2) %></b></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tbody>
 
 </table>

@@ -9,18 +9,14 @@ class Holding < ActiveRecord::Base
   validates :security_id, :uniqueness => { :scope => :portfolio_id }
   validates :shares_held, :presence => true
 
+  # Basic Methods
+
   def summary
-      @summary ||= retrieve_from_yahoo
+    @summary ||= retrieve_from_yahoo
   end
   
   def indicator(key)
     summary["#{key}"]
-  end
-
-  def key_indicators 
-    indicator("LastTradePriceOnly")
-    indicator("MarketCapitalization")
-    indicator("PERatio")
   end
 
   def dollar_value_currency
@@ -29,6 +25,15 @@ class Holding < ActiveRecord::Base
 
   def dollar_value
     value = indicator("LastTradePriceOnly").to_f * shares_held.to_f
+  end
+
+  def dollar_value_yesterday
+    value = indicator("PreviousClose").to_f * shares_held.to_f
+  end
+
+  # More Complicated Methods
+  def premium
+    percent_dec((security.our_price_target.to_f/indicator("LastTradePriceOnly").to_f-1)*100)
   end
 
   # Importing these Security methods into Holding model
@@ -75,19 +80,31 @@ class Holding < ActiveRecord::Base
     ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 2)
   end
 
+  def percent(n)
+    ActionController::Base.helpers.number_to_percentage(n, :precision => 0)
+  end
+
   def percent_dec(n)
     ActionController::Base.helpers.number_to_percentage(n, :precision => 2)
   end
 
-  # def asset_total
-  #   array = []
-  #   @holdings.each do |holding|
-  #     array << holding.dollar_value
+  # Might need these later
+  # def assets(&block)
+  #   assets = []
+  #   self.each do |holding|
+  #     assets << holding.dollar_value
   #   end
-  #   assets = array.sum
-  #   asset_total = number_to_currency(assets)
+  #   assets = assets.sum
   # end
 
+  def key_indicators_p_sh
+    array = ["DividendShare","EarningsShare","EPSEstimateCurrentYear","EPSEstimateNextYear"]
+  end
+
+  def key_indicators
+    array = ["EPSEstimateCurrentYear","EPSEstimateNextYear","DividendShare"]
+  end
+  
   private
 
   def retrieve_from_yahoo
@@ -98,5 +115,4 @@ class Holding < ActiveRecord::Base
     parsed = JSON.parse(pretty)
     result = parsed["query"]["results"]["quote"]
   end
-
 end

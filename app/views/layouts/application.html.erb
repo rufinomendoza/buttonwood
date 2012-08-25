@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Project Buttonwood</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
 
-  <br />
+  <head>
+    <title>Project Buttonwood</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, :id => "flash#{name}" %>
-  <% end %>
+  </head>
 
-  <div id="user_nav">
-    <% if current_user %>
-      Logged in as <%= current_user.email %>
-      <%= link_to "Log out", log_out_path %>
-    <% else %>
-      <%= link_to "Sign up", sign_up_path %> or 
-      <%= link_to "Log in", log_in_path %>
-    <% end %>
-  </div>
+  <body>
+    <header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav>
+          <ul class="nav pull-left">
+            <li><%= link_to 'Summary', holdings_path %></li>
+            <li><%= link_to 'Portfolios', portfolios_path %></li>
+            <li><%= link_to 'Securities', securities_path %></li>
+          </ul>
+          <ul class="nav pull-right">
+            <% if current_user %>
+              <li><%= link_to "Log out", log_out_path %></li>
+            <% else %>
+              <li><%= link_to "Sign up", sign_up_path %></li>
+              <li><%= link_to "Log in", log_in_path %></li>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    </header>
 
-<%= yield %>
 
-</body>
+    <div class="container">
+
+      <% if current_user %>
+          <p align="right">Logged in as <%= current_user.email %></p>
+        <% else %>
+      <% end %>
+
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash#{name}" %>
+      <% end %>
+
+      <br />
+      <%= yield %>
+    </div>
+
+
+  </body>
 </html>
