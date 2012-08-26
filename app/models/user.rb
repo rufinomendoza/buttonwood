@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :portfolios, :dependent => :destroy
   has_many :securities, :dependent => :destroy
+  has_many :sectors, :dependent => :destroy
   before_create { generate_token(:auth_token) }
 
   def send_password_reset

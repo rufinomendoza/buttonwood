@@ -1,0 +1,22 @@
+<h1>Listing sectors</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sectors.each do |sector| %>
+  <tr>
+    <td><%= sector.name %></td>
+    <td><%= link_to 'Edit', edit_sector_path(sector), class: "btn btn-mini" %></td>
+    <td><%= link_to 'Eviscerate', sector, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-mini btn-danger" %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sector', new_sector_path, class: "btn btn-mini btn-success"  %>

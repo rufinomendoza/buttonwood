@@ -42,7 +42,7 @@
 
   <% @holdings.each do |holding| %>
   <tr>
-    <td><%= holding.our_sector %></td>
+    <td><%= holding.sector_name_for_holdings %></td>
     <td><%= holding.symbol.upcase %></td>
     
     <td style="text-align:right">

@@ -5625,9 +5625,23 @@ a.badge:hover {
 
 
 /* My additions */
-body
-{
-  padding: 55px;
+body {
+  padding: 60px;
 }
+
+.navbar-inverse .brand {
+  font-family: Futura, "Tw Cen MT", "Trebuchet MS", Arial, sans-serif;
+  font-weight: bold;
+  font-variant: small-caps;
+  font-size: 30px;
+  color:#dcc08e;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.4)
+}
+
+.center {
+  text-align: center;
+}
+
 /* Changed .table td from {border-top: 1px solid #dddddd;} */
 /* Changed font stack to Segoe UI and h1 to h6 as font-weight: normal */
+/* Navbar brand font-weight changed from 200 to bold and #555555 to #800020*/

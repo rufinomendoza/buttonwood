@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120825022121) do
+ActiveRecord::Schema.define(:version => 20120826000920) do
 
   create_table "holdings", :force => true do |t|
     t.integer  "portfolio_id"
@@ -34,15 +34,22 @@ ActiveRecord::Schema.define(:version => 20120825022121) do
     t.integer "user_id"
   end
 
+  create_table "sectors", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "securities", :force => true do |t|
     t.integer  "user_id"
-    t.string   "our_sector"
     t.string   "symbol"
     t.float    "our_price_target"
     t.float    "our_current_year_eps"
     t.float    "our_next_year_eps"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "sector_id"
   end
 
   create_table "users", :force => true do |t|

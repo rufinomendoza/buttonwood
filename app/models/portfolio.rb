@@ -4,5 +4,5 @@ class Portfolio < ActiveRecord::Base
   has_many :holdings, :dependent => :destroy
   has_many :securities, :through => :holdings, :dependent => :destroy
 
-  validates :name, :uniqueness => true
+  validates :name, :uniqueness => { :scope => :user_id }
 end

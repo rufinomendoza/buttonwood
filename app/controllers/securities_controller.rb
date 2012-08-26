@@ -27,6 +27,7 @@ class SecuritiesController < ApplicationController
   def create
     @security = Security.new(params[:security])
     @security.user_id = current_user.id
+    @security.symbol.upcase!
     respond_to do |format|
       if @security.save
         format.html { redirect_to @security, notice: 'Security was successfully created.' }
@@ -42,7 +43,7 @@ class SecuritiesController < ApplicationController
   # PUT /securities/1.json
   def update
     @security = Security.find(params[:id])
-
+    @security.symbol.upcase!
     respond_to do |format|
       if @security.update_attributes(params[:security])
         format.html { redirect_to @security, notice: 'Security was successfully updated.' }

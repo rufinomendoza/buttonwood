@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :our_sector %>
-    <%= f.text_field :our_sector %>
+    <%= f.label :sector_id %>
+    <%= f.collection_select :sector_id, Sector.where("user_id = ?", current_user.id), :id, :name, :include_blank => false %>
   </div>
   <div class="field">
     <%= f.label :symbol %>

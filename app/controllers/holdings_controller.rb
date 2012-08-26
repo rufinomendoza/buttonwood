@@ -2,7 +2,10 @@ class HoldingsController < ApplicationController
   # GET /holdings
   # GET /holdings.json
   def index
-    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id) 
+      @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
+    rescue ZeroDivisionError
+      flash[:notice] = "Please add a new holding."
+      redirect_to new_holding_path(@holding)
   end
 
   # GET /holdings/1
@@ -41,7 +44,6 @@ class HoldingsController < ApplicationController
   # PUT /holdings/1.json
   def update
     @holding = Holding.find(params[:id])
-
     respond_to do |format|
       if @holding.update_attributes(params[:holding])
         format.html { redirect_to @holding, notice: 'Holding was successfully updated.' }

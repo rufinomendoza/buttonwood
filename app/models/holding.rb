@@ -38,8 +38,8 @@ class Holding < ActiveRecord::Base
 
   # Importing these Security methods into Holding model
 
-  def our_sector
-    security.our_sector
+  def sector_name_for_holdings
+    security.sector_name
   end
 
   def symbol
