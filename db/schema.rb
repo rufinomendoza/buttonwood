@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826000920) do
+ActiveRecord::Schema.define(:version => 20120826000619) do
 
   create_table "holdings", :force => true do |t|
     t.integer  "portfolio_id"
