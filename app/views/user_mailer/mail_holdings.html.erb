@@ -1,2 +1,6 @@
-<p>how do you render from another view?</p>
-<%= render :action => holdings %>
+<h1>Test</h1>
+
+<p>This message was automagically generated at <%= Time.current %></p>
+
+<%= render :template => 'holdings/_summary' %>
+<%= render :template => 'holdings/_kpi' %>

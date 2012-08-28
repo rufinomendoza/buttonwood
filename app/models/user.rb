@@ -25,4 +25,34 @@ class User < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
+
+
+end
+
+class Format
+  # Formatting across the 
+
+  def self.currency(n)
+    ActionController::Base.helpers.number_to_currency(n, :unit => "$", :precision => 0)
+  end
+
+  def self.currency_dec(n)
+    ActionController::Base.helpers.number_to_currency(n, :unit => "$", :precision => 2)
+  end  
+
+  def self.comma(n)
+    ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 0)
+  end
+  
+  def self.comma_dec(n)
+    ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 2)
+  end
+
+  def self.percent(n)
+    ActionController::Base.helpers.number_to_percentage(n, :precision => 0)
+  end
+
+  def self.percent_dec(n)
+    ActionController::Base.helpers.number_to_percentage(n, :precision => 2)
+  end
 end

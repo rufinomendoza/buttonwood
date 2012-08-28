@@ -1,6 +1,6 @@
 <h1>Portfolios</h1>
 
-<table class="table table-condensed table-hover">
+<table class="table table-hover">
   <thead>
   <tr>
     <th>Name</th>
@@ -14,11 +14,11 @@
     <td><%= portfolio.name %></td>
     <td><%= link_to 'Details', portfolio, :class => "btn btn-mini" %></td>
     <td><%= link_to 'Edit', edit_portfolio_path(portfolio), :class => "btn btn-mini"  %></td>
-    <td><%= link_to 'Liquidate', portfolio, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger"%></td>
+    <td><%= link_to 'Liquidate', portfolio, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini"%></td>
   </tr>
 <% end %>
 </tbody>
 </table>
 
-<%= link_to 'Add Portfolio', new_portfolio_path, :class => "btn btn-mini btn-success pull-left" %>
+<%= link_to 'Add Portfolio', new_portfolio_path, :class => "btn btn-mini" %>
 <br />

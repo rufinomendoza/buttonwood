@@ -9,18 +9,42 @@ class Holding < ActiveRecord::Base
   validates :security_id, :uniqueness => { :scope => :portfolio_id }
   validates :shares_held, :presence => true
 
-  # Basic Methods
+  # Indicators
 
-  def summary
-    @summary ||= retrieve_from_yahoo
-  end
-  
   def indicator(key)
     summary["#{key}"]
   end
 
+  def indicator_currency(key)
+    Format.currency(indicator(key).to_f)
+  end
+
+  def indicator_currency_dec(key)
+    Format.currency_dec(indicator(key).to_f)
+  end
+
+  def indicator_comma_dec(key)
+    Format.comma_dec(indicator(key).to_f)
+  end
+
+  def indicator_percent_dec(key)
+    Format.percent_dec(indicator(key).to_f)
+  end
+
+  def weight(assets)
+    Format.percent_dec(dollar_value/assets*100)
+  end
+
+  # Getting info from API
+
+  def summary
+    @summary ||= retrieve_from_yahoo
+  end
+
+  # Methods for table
+  
   def dollar_value_currency
-    currency(dollar_value)
+    Format.currency(dollar_value)
   end
 
   def dollar_value
@@ -33,8 +57,9 @@ class Holding < ActiveRecord::Base
 
   # More Complicated Methods
   def premium
-    percent_dec((indicator("LastTradePriceOnly").to_f/security.our_price_target.to_f-1)*100)
+    Format.percent_dec((indicator("LastTradePriceOnly").to_f/security.our_price_target.to_f-1)*100)
   end
+
 
   # Importing these Security methods into Holding model
 
@@ -47,55 +72,20 @@ class Holding < ActiveRecord::Base
   end
 
   def our_price_target
-    currency_dec(security.our_price_target)
+    Format.currency_dec(security.our_price_target)
   end
 
   def our_current_year_eps
-    commas_dec(security.our_current_year_eps)
+    Format.comma_dec(security.our_current_year_eps)
   end
 
   def our_next_year_eps
-    commas_dec(security.our_next_year_eps)
+    Format.comma_dec(security.our_next_year_eps)
   end
 
   def portfolio_name
     portfolio.name
   end
-
-  # Formatting Methods
-
-  def currency(n)
-    ActionController::Base.helpers.number_to_currency(n, :unit => "$", :precision => 0)
-  end
-
-  def currency_dec(n)
-    ActionController::Base.helpers.number_to_currency(n, :unit => "$", :precision => 2)
-  end  
-
-  def commas(n)
-    ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 0)
-  end
-  
-  def commas_dec(n)
-    ActionController::Base.helpers.number_to_currency(n, :unit => "", :precision => 2)
-  end
-
-  def percent(n)
-    ActionController::Base.helpers.number_to_percentage(n, :precision => 0)
-  end
-
-  def percent_dec(n)
-    ActionController::Base.helpers.number_to_percentage(n, :precision => 2)
-  end
-
-  # Might need these later
-  # def assets(&block)
-  #   assets = []
-  #   self.each do |holding|
-  #     assets << holding.dollar_value
-  #   end
-  #   assets = assets.sum
-  # end
 
   def key_indicators_p_sh
     array = ["DividendShare","EarningsShare","EPSEstimateCurrentYear","EPSEstimateNextYear"]

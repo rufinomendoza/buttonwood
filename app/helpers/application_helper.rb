@@ -7,4 +7,17 @@ module ApplicationHelper
     when :alert then "alert alert-error"
     end
   end
+
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    css_class = (column == sort_column) ? "current #{sort_direction}" : nil
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction}, {:class => css_class}
+  end
+
+  def sort_calculated(method)
+    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
+    @holdings.sort_by!{|holding| method}
+  end
+
 end

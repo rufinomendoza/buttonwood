@@ -1,19 +1,17 @@
 <h1>Log in</h1>
 
 <%= form_tag sessions_path do %>
-  <div class="field">
     <%= label_tag :email %>
     <%= text_field_tag :email, params[:email] %>
-  </div>
-  <div class="field">
     <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </div>
-  <p><%= link_to "Forgetten Password?", new_password_reset_path %></p>
+    <%= password_field_tag :password %><br />
+  <%= link_to "Forgetten Password?", new_password_reset_path, :class => "button input[type=submit]" %>
+  <br />
+  <br />
   <div class="form-inline">
     <%= label_tag :remember_me %>
     <%= check_box_tag :remember_me, 1, params[:remember_me] %>
   </div>
   <br />
-  <div class="actions"><%= submit_tag "Log in" %></div>
+  <%= submit_tag "Log in" %>
 <% end %>

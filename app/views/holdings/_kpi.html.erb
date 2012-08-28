@@ -43,28 +43,30 @@
   <% @holdings.each do |holding| %>
   <tr>
     <td><%= holding.sector_name_for_holdings %></td>
-    <td><%= holding.symbol.upcase %></td>
+    <td><%= holding.symbol %></td>
     
     <td style="text-align:right">
-      <% result = holding.dollar_value/assets*100 %>
-      <%= holding.percent_dec(result) %>
+      <%= holding.weight(@assets) %>
     </td>
     <td style="text-align:right">
-      <% result = holding.indicator("LastTradePriceOnly").to_f %>
-      <%= holding.currency_dec(result) %>
+      <%= holding.indicator_currency_dec("LastTradePriceOnly") %>
     </td>
-    <td style="text-align:right"><%= holding.our_price_target %></td>
-    <td style="text-align:right"><%= holding.premium %></td>
+    <td style="text-align:right">
+      <%= holding.our_price_target %>
+    </td>
+    <td style="text-align:right">
+      <%= holding.premium %>
+    </td>
 
-    <% holding.key_indicators_p_sh.each do |indicator| %>
-    <td><%= holding.currency_dec(holding.indicator(indicator)) %></td>
+    <%- holding.key_indicators_p_sh.each do |key| %>
+      <td style="text-align:right">
+        <%= holding.indicator_currency_dec(key) %>
+      </td>
     <% end %>
 
     <td style="text-align:right">
-      <% result = holding.indicator("PEGRatio").to_f %>
-      <%= holding.commas_dec(result) %>
+      <%= holding.indicator_comma_dec("PEGRatio") %>
     </td>
-    
     <td style="text-align:right"><%= holding.our_current_year_eps %></td>
     <td style="text-align:right"><%= holding.our_next_year_eps %></td>
     <td> </td>
@@ -74,7 +76,7 @@
   <tr>
     <td><b>Total</b></td>
     <td></td>
-    <td style="text-align:right"><b><%= ActionController::Base.helpers.number_to_percentage(assets/assets*100, :precision => 2) %></b></td>
+    <td style="text-align:right"><b><%= Format.percent_dec(100) %></b></td>
     <td colspan = "11"></td>
   </tr>
   </tbody>
