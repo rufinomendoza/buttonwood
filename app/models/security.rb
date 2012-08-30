@@ -8,7 +8,6 @@ class Security < ActiveRecord::Base
 
   validates :symbol, :uniqueness => { :scope => :user_id, :case_sensitive => false }
   validates :sector_id, :presence => true
-  validates :our_price_target, :presence => true
 
   def sector_name
     sector.name
