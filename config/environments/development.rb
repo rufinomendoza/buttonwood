@@ -22,8 +22,8 @@ ButtonwoodTwo::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'baci.lindsaar.net',
-    :user_name            => '',
-    :password             => '',
+    :user_name            => 'rufino.a.mendoza@gmail.com',
+    :password             => 'zbntyswcxbxphjlu',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 
