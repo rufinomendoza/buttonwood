@@ -20,5 +20,4 @@ module ApplicationHelper
     @holdings.sort_by!(&block)
   end
 
-
 end

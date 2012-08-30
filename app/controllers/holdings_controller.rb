@@ -5,6 +5,8 @@ class HoldingsController < ApplicationController
   # GET /holdings
   # GET /holdings.json
   def index
+    # @search = Holding.search(params[:search])
+    # @holdings = @search.joins(:portfolio).where("user_id = ?", current_user.id)
     @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)#.order(sort_column + ' ' + sort_direction)
     # @holdings.sort_by!(&:symbol)
 
@@ -23,7 +25,6 @@ class HoldingsController < ApplicationController
     if @assets > 0 || @assets_yesterday > 0
       @chg = (@assets/@assets_yesterday-1)*100
     end
-
   end
 
   # GET /holdings/1
