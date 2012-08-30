@@ -9,6 +9,11 @@ gem 'rails', '3.2.8'
 # sqlite3 this is replaced by pg for heroku
 # and add thin gem as well as Procfile
 gem 'pg'
+
+group :development do
+  gem 'sqlite3'
+end
+
 # gem 'thin'
 
 # Gems used only for assets and not required
