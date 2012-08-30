@@ -15,9 +15,10 @@ module ApplicationHelper
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
 
-  def sort_calculated(method)
+  def sorted_test(&block)
     @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
-    @holdings.sort_by!{|holding| method}
+    @holdings.sort_by!(&block)
   end
+
 
 end

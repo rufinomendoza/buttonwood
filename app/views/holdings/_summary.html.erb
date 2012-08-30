@@ -5,8 +5,8 @@
   <tr>
     <th>Portfolio</th>
     <th>Name</th>
-    <th>Symbol</th>
-    <th><%= sortable "shares_held", "Shares" %></th>
+    <th><%= link_to "Symbol", do @holdings.sort_by!(&:symbol) end %></th>
+    <th><%= "Shares" %></th>
     <th>Previous Close</th>
     <th>Current Price</th>
     <th>Pct Change</th>

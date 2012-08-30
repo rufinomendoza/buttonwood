@@ -1,11 +1,12 @@
 class HoldingsController < ApplicationController
 
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :sort_calculated
 
   # GET /holdings
   # GET /holdings.json
   def index
-    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id).order(sort_column + ' ' + sort_direction)
+    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)#.order(sort_column + ' ' + sort_direction)
+    # @holdings.sort_by!(&:symbol)
 
     @assets = []
     @holdings.each do |holding| 
@@ -22,6 +23,7 @@ class HoldingsController < ApplicationController
     if @assets > 0 || @assets_yesterday > 0
       @chg = (@assets/@assets_yesterday-1)*100
     end
+
   end
 
   # GET /holdings/1
@@ -83,13 +85,17 @@ class HoldingsController < ApplicationController
     end
   end
 
-  def sort_asc
-    @holdings.sort_by!{|holding| holding.indicator("Name")}
-  end
+  # def sort_asc(method)
+  #   @holdings.sort_by!{|holding| method}
+  # end
 
-  def sort_desc(method)
-    @holdings.sort_by!{|holding| method}.reverse!
-  end
+  # def sort_desc(method)
+  #   @holdings.sort_by!{|holding| method}.reverse!
+  # end
+
+  # def sorted_test(params)
+  #   Holdings.find(:all).sort_by { |holding| holding.send(params[:sort].to_sym) }
+  # end
 
   private
 
@@ -100,5 +106,8 @@ class HoldingsController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
+
+
+
 
 end
