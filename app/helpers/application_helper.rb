@@ -14,10 +14,4 @@ module ApplicationHelper
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
-
-  def sorted_test(&block)
-    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
-    @holdings.sort_by!(&block)
-  end
-
 end

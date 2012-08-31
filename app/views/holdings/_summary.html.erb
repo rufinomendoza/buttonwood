@@ -1,12 +1,12 @@
-<h1>Portfolio Summary</h1>
+<h3>Summary</h3>
 
 <table class="table table-condensed table-hover">
   <thead>
   <tr>
     <th>Portfolio</th>
     <th>Name</th>
-    <th><%= "Symbol" %></th>
-    <th><%= "Shares" %></th>
+    <th>Symbol</th>
+    <th>Shares</th>
     <th>Previous Close</th>
     <th>Current Price</th>
     <th>Pct Change</th>
@@ -16,12 +16,12 @@
   </tr>
   </thead>
 
-<tbody>
 <% @holdings.each do |holding| %>
+  <tbody>
   <tr>
     <td><%= holding.portfolio_name %></td>
-    <td><%= holding.indicator("Name") %></td>
-    <td><%= holding.symbol.upcase %></td>
+    <td><%= holding.name %></td>
+    <td><%= holding.symbol %></td>
     <td style="text-align:right">
       <%= Format.comma(holding.shares_held) %>
     </td>

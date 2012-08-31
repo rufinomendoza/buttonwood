@@ -12,6 +12,7 @@ gem 'pg'
 group :development do
   gem 'sqlite3'
 end
+gem 'handles_sortable_columns'
 
 # gem 'thin'
 

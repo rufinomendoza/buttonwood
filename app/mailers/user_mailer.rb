@@ -32,6 +32,6 @@ class UserMailer < ActionMailer::Base
       @chg = (@assets/@assets_yesterday-1)*100
     end
 
-    mail to: user.email, :subject => "Your Portfolio Performance"
+    mail to: user.email, :subject => "Portfolio Summary"
   end
 end

@@ -15,6 +15,10 @@ class Holding < ActiveRecord::Base
     summary["#{key}"]
   end
 
+  def name
+    summary["Name"]
+  end
+
   def indicator_currency(key)
     Format.currency(indicator(key).to_f)
   end
@@ -87,12 +91,24 @@ class Holding < ActiveRecord::Base
     portfolio.name
   end
 
-  def key_indicators_p_sh
-    array = ["DividendShare","EarningsShare","EPSEstimateCurrentYear","EPSEstimateNextYear"]
+  def bv
+    indicator("BookValue")
   end
 
-  def key_indicators
-    array = ["EPSEstimateCurrentYear","EPSEstimateNextYear","DividendShare"]
+  def dps
+    indicator("DividendShare")
+  end
+
+  def eps
+    indicator("EarningsShare")
+  end
+
+  def fy1_consensus_eps
+    indicator("EPSEstimateCurrentYear")
+  end
+
+  def fy2_consensus_eps
+    indicator("EPSEstimateNextYear")
   end
   
   private

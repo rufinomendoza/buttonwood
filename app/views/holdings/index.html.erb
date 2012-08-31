@@ -1,9 +1,10 @@
 <% if @assets > 0 || @assets_yesterday > 0 %>
+<h1>Holdings</h1>
 
 <%= render 'summary' %>
 <br />
 <br />
-<%= render 'kpi' %>
+<%= render 'fund' %>
 
 <% else %>
 <%= link_to 'Add Holding', new_holding_path, :class => "btn btn-large" %>
