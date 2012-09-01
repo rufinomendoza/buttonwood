@@ -32,6 +32,8 @@ class UserMailer < ActionMailer::Base
       @chg = (@assets/@assets_yesterday-1)*100
     end
 
+    @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
+    
     mail to: user.email, :subject => "Portfolio Summary"
   end
 end
