@@ -1,6 +1,5 @@
 class HoldingsController < ApplicationController
 
-  caches_action :index
   # GET /holdings
   # GET /holdings.json
   def index
@@ -58,7 +57,6 @@ class HoldingsController < ApplicationController
   # POST /holdings.json
   def create
     @holding = Holding.new(params[:holding])
-    expire_action :action => :index
     respond_to do |format|
       if @holding.save
         format.html { redirect_to holdings_url, notice: 'Holding was successfully created.' }
@@ -74,7 +72,6 @@ class HoldingsController < ApplicationController
   # PUT /holdings/1.json
   def update
     @holding = Holding.find(params[:id])
-    expire_action :action => :index
     respond_to do |format|
       if @holding.update_attributes(params[:holding])
         format.html { redirect_to holdings_url, notice: 'Holding was successfully updated.' }
@@ -91,7 +88,6 @@ class HoldingsController < ApplicationController
   def destroy
     @holding = Holding.find(params[:id])
     @holding.destroy
-    expire_action :action => :index
     respond_to do |format|
       format.html { redirect_to holdings_url }
       format.json { head :no_content }
