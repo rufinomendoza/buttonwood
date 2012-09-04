@@ -1,23 +1,29 @@
 class HoldingsController < ApplicationController
 
-  helper_method :sort_column, :sort_direction, :sort_calculated
-  handles_sortable_columns
+  caches_page :index
+
   # GET /holdings
   # GET /holdings.json
   def index
-    # @search = Holding.search(params[:search])
-    # @holdings = @search.joins(:portfolio).where("user_id = ?", current_user.id)
-    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id).order(sortable_column_order)#.order(sort_column + ' ' + sort_direction)
+    @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
+
+    @portfolios = Portfolio.where("user_id = ?", current_user.id)
     
     @assets = []
     @holdings.each do |holding| 
       @assets << holding.dollar_value
+    end 
+    @portfolios.each do |portfolio| 
+      @assets << portfolio.cash
     end 
     @assets = @assets.sum 
 
     @assets_yesterday = [] 
     @holdings.each do |holding| 
       @assets_yesterday << holding.dollar_value_yesterday 
+    end
+    @portfolios.each do |portfolio| 
+      @assets_yesterday << portfolio.cash
     end 
     @assets_yesterday = @assets_yesterday.sum
 
@@ -86,30 +92,4 @@ class HoldingsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  # def sort_asc(method)
-  #   @holdings.sort_by!{|holding| method}
-  # end
-
-  # def sort_desc(method)
-  #   @holdings.sort_by!{|holding| method}.reverse!
-  # end
-
-  # def sorted_test(params)
-  #   Holdings.find(:all).sort_by { |holding| holding.send(params[:sort].to_sym) }
-  # end
-
-  private
-
-  def sort_column
-     Holding.column_names.include?(params[:sort]) ? params[:sort] : "name"
-  end
-  
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-  end
-
-
-
-
 end

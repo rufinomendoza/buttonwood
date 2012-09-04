@@ -3,6 +3,7 @@ class SecuritiesController < ApplicationController
   # GET /securities.json
   def index
     @securities = Security.where("user_id = ?", current_user.id)
+    @securities.sort_by!{|security| [security.sector_name, security.symbol]}
   end
 
   # GET /securities/1
@@ -30,7 +31,7 @@ class SecuritiesController < ApplicationController
     @security.symbol.upcase!
     respond_to do |format|
       if @security.save
-        format.html { redirect_to @security, notice: 'Security was successfully created.' }
+        format.html { redirect_to securities_url, notice: 'Security was successfully created.' }
         format.json { render json: @security, status: :created, location: @security }
       else
         format.html { render action: "new" }
@@ -46,7 +47,7 @@ class SecuritiesController < ApplicationController
     @security.symbol.upcase!
     respond_to do |format|
       if @security.update_attributes(params[:security])
-        format.html { redirect_to @security, notice: 'Security was successfully updated.' }
+        format.html { redirect_to securities_url, notice: 'Security was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

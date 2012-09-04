@@ -2,7 +2,8 @@ class SectorsController < ApplicationController
   # GET /sectors
   # GET /sectors.json
   def index
-    @sectors = Sector.where("user_id = ?", current_user.id) 
+    @sectors = Sector.where("user_id = ?", current_user.id)
+    @sectors.sort_by!{|sector| sector.name}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -43,7 +44,7 @@ class SectorsController < ApplicationController
     @sector.user_id = current_user.id
     respond_to do |format|
       if @sector.save
-        format.html { redirect_to @sector, notice: 'Sector was successfully created.' }
+        format.html { redirect_to sectors_url, notice: 'Sector was successfully created.' }
         format.json { render json: @sector, status: :created, location: @sector }
       else
         format.html { render action: "new" }
@@ -59,7 +60,7 @@ class SectorsController < ApplicationController
     
     respond_to do |format|
       if @sector.update_attributes(params[:sector])
-        format.html { redirect_to @sector, notice: 'Sector was successfully updated.' }
+        format.html { redirect_to sectors_url, notice: 'Sector was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

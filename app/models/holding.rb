@@ -16,7 +16,7 @@ class Holding < ActiveRecord::Base
   end
 
   def name
-    summary["Name"]
+    indicator("Name")
   end
 
   def indicator_currency(key)
@@ -75,6 +75,10 @@ class Holding < ActiveRecord::Base
     security.symbol
   end
 
+  def last_px
+    indicator("LastTradePriceOnly").to_f
+  end
+
   def our_price_target
     Format.currency_dec(security.our_price_target)
   end
@@ -92,7 +96,7 @@ class Holding < ActiveRecord::Base
   end
 
   def bv
-    indicator("BookValue")
+    indicator("BookValue").to_f
   end
 
   def dps
@@ -100,7 +104,7 @@ class Holding < ActiveRecord::Base
   end
 
   def eps
-    indicator("EarningsShare")
+    indicator("EarningsShare").to_f
   end
 
   def fy1_consensus_eps
@@ -110,11 +114,19 @@ class Holding < ActiveRecord::Base
   def fy2_consensus_eps
     indicator("EPSEstimateNextYear")
   end
+
+  def trailing_pb
+    last_px/bv
+  end
+
+  def trailing_pe
+    last_px/eps
+  end
   
   private
 
   def retrieve_from_yahoo
-    url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22#{security.symbol}%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
+    url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%3D%22#{symbol}%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
     resp = Net::HTTP.get_response(URI.parse(url))
     body = JSON.parse(resp.body)
     pretty = JSON.pretty_generate(body)

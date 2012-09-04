@@ -3,6 +3,29 @@ class PortfoliosController < ApplicationController
   # GET /portfolios.json
   def index
     @portfolios = Portfolio.where("user_id = ?", current_user.id)
+    # @holdings = Holding.joins(:portfolio).where("user_id = ?", current_user.id)
+
+    # @assets = []
+    # @holdings.each do |holding| 
+    #   @assets << holding.dollar_value
+    # end 
+    # @portfolios.each do |portfolio| 
+    #   @assets << portfolio.cash
+    # end 
+    # @assets = @assets.sum 
+
+    # @assets_yesterday = [] 
+    # @holdings.each do |holding| 
+    #   @assets_yesterday << holding.dollar_value_yesterday 
+    # end
+    # @portfolios.each do |portfolio| 
+    #   @assets_yesterday << portfolio.cash
+    # end 
+    # @assets_yesterday = @assets_yesterday.sum
+
+    # if @assets > 0 || @assets_yesterday > 0
+    #   @chg = (@assets/@assets_yesterday-1)*100
+    # end
   end
 
   # GET /portfolios/1

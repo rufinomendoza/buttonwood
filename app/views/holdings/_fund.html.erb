@@ -12,7 +12,7 @@
 
   <tr>
     <th colspan = "6"></th>
-    <th colspan = "3" style="text-align:center; border-bottom:1px solid;">Trailing</th>
+    <th colspan = "5" style="text-align:center; border-bottom:1px solid;">Trailing</th>
     <th></th>
     <th colspan = "3" style="text-align:center; border-bottom:1px solid;">Internal Forecasts</th>
     <th></th>
@@ -28,6 +28,9 @@
     <th>Book</th>
     <th>DPS</th>
     <th>EPS</th>
+    <th>P/E</th>
+    <th>P/B</th>
+
     <th> </th>
     <th>FY1 EPS</th>
     <th>FY2 EPS</th>
@@ -47,7 +50,7 @@
       <%= holding.weight(@assets) %>
     </td>
     <td style="text-align:right">
-      <%= holding.indicator_currency_dec("LastTradePriceOnly") %>
+      <%= Format.currency_dec(holding.last_px) %>
     </td>
     <td style="text-align:right">
       <%= holding.our_price_target %>
@@ -59,6 +62,8 @@
     <td style="text-align:right"><%= Format.currency_dec(holding.bv) %></td>
     <td style="text-align:right"><%= Format.currency_dec(holding.dps) %></td>
     <td style="text-align:right"><%= Format.currency_dec(holding.eps) %></td>
+    <td style="text-align:right"><%= Format.comma_dec(holding.trailing_pb) %></td>
+    <td style="text-align:right"><%= Format.comma_dec(holding.trailing_pe) %></td>
     <td> </td>
     
     <td style="text-align:right"><%= holding.our_current_year_eps %></td>
