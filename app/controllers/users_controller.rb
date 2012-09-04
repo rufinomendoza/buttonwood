@@ -40,6 +40,7 @@ class UsersController < ApplicationController
     @portfolio = Portfolio.new(params[:portfolio])
     @portfolio.user_id = @user.id
     @portfolio.name = "Starter Portfolio"
+    @portfolio.cash = 1000
     @portfolio.save
 
     @holding = Holding.new(params[:holding])

@@ -47,20 +47,33 @@
   </tr>
 <% end %>
 
+<tr>
+  <td><b>Total Equity</b></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td style="text-align:right"><b><%= Format.percent_dec(@stocks_chg) %></b></td>
+  <td style="text-align:right"><b><%= Format.currency(@stocks) %></b></td>
+  <td style="text-align:right"><b><%= Format.percent_dec(@stock_weight) %></b></td>
+  
+  <td></td>
+  <td></td>
+  
+  </tr>
+
 <% @portfolios.each do |portfolio| %>
     <tr>
     <td><%= portfolio.name %></td>
-    <td></td>
     <td>Cash</td>
     <td></td>
-    <td style="text-align:right">
-    </td>
-    <td style="text-align:right">
-    </td>
-    <td style="text-align:right">
-    </td>
-    <td style="text-align:right">
-    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td style="text-align:right">
       <%= Format.currency(portfolio.cash) %>
     </td>
@@ -70,18 +83,17 @@
     <td><%= link_to 'Edit', edit_portfolio_url(portfolio), :class => "btn btn-mini" %></td>
     <td></td>
   </tr>
-
 <% end %>
 
 <tr>
-  <td><b>Total</b></td>
+  <td><b>Total Assets</b></td>
   <td></td>
   <td></td>
   <td></td>
   <td></td>
   <td></td>
   <td></td>
-  <td style="text-align:right"><b><%= Format.percent_dec(@chg) %></b></td>
+  <td style="text-align:right"><b><%= Format.percent_dec(@asset_chg) %></b></td>
   <td style="text-align:right"><b><%= Format.currency(@assets) %></b></td>
   <td style="text-align:right"><b><%= Format.percent_dec(100) %></b></td>
   

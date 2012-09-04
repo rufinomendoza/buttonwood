@@ -9,26 +9,30 @@ class HoldingsController < ApplicationController
 
     @portfolios = Portfolio.where("user_id = ?", current_user.id)
     
-    @assets = []
+    @stocks = []
+    @liquid = []
     @holdings.each do |holding| 
-      @assets << holding.dollar_value
-    end 
-    @portfolios.each do |portfolio| 
-      @assets << portfolio.cash
-    end 
-    @assets = @assets.sum 
-
-    @assets_yesterday = [] 
-    @holdings.each do |holding| 
-      @assets_yesterday << holding.dollar_value_yesterday 
+      @stocks << holding.dollar_value
     end
     @portfolios.each do |portfolio| 
-      @assets_yesterday << portfolio.cash
-    end 
-    @assets_yesterday = @assets_yesterday.sum
+      @liquid << portfolio.cash
+    end
+    @stocks = @stocks.sum
+    @liquid = @liquid.sum 
+    @assets = @stocks + @liquid
+
+    @stocks_yesterday = [] 
+    @holdings.each do |holding| 
+      @stocks_yesterday << holding.dollar_value_yesterday 
+    end
+    @stocks_yesterday = @stocks_yesterday.sum
+    @assets_yesterday = @stocks_yesterday + @liquid
+
+    @stock_weight = @stocks/@assets*100
 
     if @assets > 0 || @assets_yesterday > 0
-      @chg = (@assets/@assets_yesterday-1)*100
+      @asset_chg = (@assets/@assets_yesterday-1)*100
+      @stocks_chg = (@stocks/@stocks_yesterday-1)*100
     end
 
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!

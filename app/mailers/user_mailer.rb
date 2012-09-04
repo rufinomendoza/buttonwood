@@ -16,20 +16,32 @@ class UserMailer < ActionMailer::Base
     @user = user
     @holdings = Holding.joins(:portfolio).where("user_id = ?", @user.id)
 
-    @assets = []
+    @portfolios = Portfolio.where("user_id = ?", user.id)
+    
+    @stocks = []
+    @liquid = []
     @holdings.each do |holding| 
-      @assets << holding.dollar_value
-    end 
-    @assets = @assets.sum 
+      @stocks << holding.dollar_value
+    end
+    @portfolios.each do |portfolio| 
+      @liquid << portfolio.cash
+    end
+    @stocks = @stocks.sum
+    @liquid = @liquid.sum 
+    @assets = @stocks + @liquid
 
-    @assets_yesterday = [] 
+    @stocks_yesterday = [] 
     @holdings.each do |holding| 
-      @assets_yesterday << holding.dollar_value_yesterday 
-    end 
-    @assets_yesterday = @assets_yesterday.sum
+      @stocks_yesterday << holding.dollar_value_yesterday 
+    end
+    @stocks_yesterday = @stocks_yesterday.sum
+    @assets_yesterday = @stocks_yesterday + @liquid
+
+    @stock_weight = @stocks/@assets*100
 
     if @assets > 0 || @assets_yesterday > 0
-      @chg = (@assets/@assets_yesterday-1)*100
+      @asset_chg = (@assets/@assets_yesterday-1)*100
+      @stocks_chg = (@stocks/@stocks_yesterday-1)*100
     end
 
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
