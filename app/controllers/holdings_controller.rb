@@ -1,7 +1,5 @@
 class HoldingsController < ApplicationController
 
-  caches_page :index
-
   # GET /holdings
   # GET /holdings.json
   def index
