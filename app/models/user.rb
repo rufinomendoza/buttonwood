@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 
   has_secure_password
   
-  validates_presence_of :password, :on => :create
+  validates :password, :presence => true,
+                       :length   => { :minimum => 8 }
   validates_presence_of :email
   validates_uniqueness_of :email
 
