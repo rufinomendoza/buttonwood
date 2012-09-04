@@ -15,6 +15,9 @@ gem 'thin', '1.3.1'
 gem 'eventmachine', '1.0.0.beta.2'
 gem 'foreman'
 
+gem "SystemTimer", :require => "system_timer", :platforms => :ruby_18
+gem "rack-timeout"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    SystemTimer (1.2.3)
     actionmailer (3.2.8)
       actionpack (= 3.2.8)
       mail (~> 2.4.4)
@@ -70,6 +71,7 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    rack-timeout (0.0.3)
     rails (3.2.8)
       actionmailer (= 3.2.8)
       actionpack (= 3.2.8)
@@ -118,12 +120,14 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  SystemTimer
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   eventmachine (= 1.0.0.beta.2)
   foreman
   jquery-rails
   pg
+  rack-timeout
   rails (= 3.2.8)
   sass-rails (~> 3.2.3)
   sqlite3
