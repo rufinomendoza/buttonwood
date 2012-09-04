@@ -132,5 +132,10 @@ class Holding < ActiveRecord::Base
     pretty = JSON.pretty_generate(body)
     parsed = JSON.parse(pretty)
     result = parsed["query"]["results"]["quote"]
+    unless parsed.blank?
+      Rails.cache.write('yahooapi', result)
+    end
+    final = Rails.cache.fetch('yahooapi')
+    return final
   end
 end
