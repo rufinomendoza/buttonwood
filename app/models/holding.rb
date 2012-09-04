@@ -132,8 +132,8 @@ class Holding < ActiveRecord::Base
       resp = Net::HTTP.get_response(URI.parse(url))
       body = JSON.parse(resp.body)
       pretty = JSON.pretty_generate(body)
-      parsed = JSON.parse(pretty)
+      parsed = JSON.parse(pretty)["query"]["results"]
     end
-    result = parsed["query"]["results"]["quote"]
+    result = parsed["quote"]
   end
 end
