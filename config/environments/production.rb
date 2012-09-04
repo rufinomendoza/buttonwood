@@ -32,7 +32,6 @@ ButtonwoodTwo::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 
-
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 

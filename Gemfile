@@ -5,16 +5,15 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
-# sqlite3 this is replaced by pg for heroku
+# sqlite3 is replaced by pg for heroku
 # and add thin gem as well as Procfile
 gem 'pg'
 group :development do
   gem 'sqlite3'
 end
-gem 'handles_sortable_columns'
-
-# gem 'thin'
+gem 'thin', '1.3.1'
+gem 'eventmachine', '1.0.0.beta.2'
+gem 'foreman'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,15 +30,10 @@ end
 
 gem 'jquery-rails'
 
-
-# gems specific to this project
-gem 'bcrypt-ruby', :require => 'bcrypt'
-# gem 'meta_search'
-
 # gem 'bootstrap-sass'
 
 # To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
