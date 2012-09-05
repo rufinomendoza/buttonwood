@@ -26,9 +26,12 @@ class HoldingsController < ApplicationController
     @stocks_yesterday = @stocks_yesterday.sum
     @assets_yesterday = @stocks_yesterday + @liquid
 
+    if @stocks > 0 || @stocks_yesterday > 0
+      @stocks_chg = (@stocks/@stocks_yesterday-1)*100
+    end
+
     if @assets > 0 || @assets_yesterday > 0
       @asset_chg = (@assets/@assets_yesterday-1)*100
-      @stocks_chg = (@stocks/@stocks_yesterday-1)*100
       @stock_weight = @stocks/@assets*100
     end
 
