@@ -1,48 +1,45 @@
 <h1>Coverage</h1>
 
-<table class="table table-hover">
+<table class="table table-condensed table-hover">
 
-<thead>
-  <tr>
-    <th></th>
-    <th></th>
-    <th colspan = "3" style="border-bottom:1px solid black; text-align:center;">Internal Forecast</th>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan = "3" style="border-bottom:1px solid black; text-align:center;">Internal Forecast</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>Sector Assigment</th>
+      <th>Symbol</th>
+      <th>Price Target</th>
+      <th>Current Year EPS</th>
+      <th>Next Year EPS</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-    <th></th>
-    <th></th>
-  </tr>
-
-  <tr>
-    <th>Sector Assigment</th>
-    <th>Symbol</th>
-    <th>Price Target</th>
-    <th>Current Year EPS</th>
-    <th>Next Year EPS</th>
-
-    <th></th>
-    <th></th>
-  </tr>
-</thead>
-
-<tbody>
-<% @securities.each do |security| %>
-  <tr>
-    <td><%= security.sector_name %></td>
-    <td><%= security.symbol %></td>
-    <td style="text-align:right">
-      <%= security.fmt_price_target %>
-    </td>
-    <td style="text-align:right">
-      <%= security.fmt_current_year_eps %>
-    </td>
-    <td style="text-align:right">
-      <%= security.fmt_next_year_eps %>
-    </td>
-    <td><%= link_to 'Edit', edit_security_path(security), :class => "btn btn-mini"  %></td>
-    <td><%= link_to 'Annihilate', security, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini"  %></td>
-  </tr>
-<% end %>
-</tbody>
+  <tbody>
+    <% @securities.each do |security| %>
+    <tr>
+      <td><%= security.sector_name %></td>
+      <td><%= security.symbol %></td>
+      <td style="text-align:right">
+        <%= security.fmt_price_target %>
+      </td>
+      <td style="text-align:right">
+        <%= security.fmt_current_year_eps %>
+      </td>
+      <td style="text-align:right">
+        <%= security.fmt_next_year_eps %>
+      </td>
+      <td><%= link_to 'Edit', edit_security_path(security), :class => "btn btn-mini"  %></td>
+      <td><%= link_to 'Annihilate', security, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini"  %></td>
+    </tr>
+    <% end %>
+  </tbody>
 
 </table>
 
