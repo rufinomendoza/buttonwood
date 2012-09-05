@@ -34,6 +34,7 @@ class HoldingsController < ApplicationController
     end
 
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
+
   end
 
 
