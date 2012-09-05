@@ -13,7 +13,7 @@
   <tr>
     <th colspan = "3"></th>
     <th></th>
-    <th colspan = "6" style="text-align:center; border-bottom:1px solid;">Performance*</th>
+    <th colspan = "8" style="text-align:center; border-bottom:1px solid;">Performance*</th>
 
   </tr>
 
@@ -22,6 +22,8 @@
     <th>Symbol</th>
     <th>Weight</th>
     <th> </th>
+    <th>Start Date</th>
+    <th>YTD</th>
     <th>Start Date</th>
     <th>1-Yr.</th>
     <th>Start Date</th>
@@ -41,6 +43,8 @@
       <%= holding.weight(@assets) %>
     </td>
     <td></td>
+    <td style="text-align:right"><%= holding.end_of_last_year_date %></td>
+    <td style="text-align:right"><%= Format.percent_dec(holding.ytd_performance) %></td>
     <td style="text-align:right"><%= holding.one_year_ago_date %></td>
     <td style="text-align:right"><%= Format.percent_dec(holding.one_year_performance) %></td>
     <td style="text-align:right"><%= holding.three_years_ago_date %></td>
@@ -51,4 +55,4 @@
   <% end %>
   </tbody>
 </table>
-<em>*Intended to be one, three, and five year performance, but if available history is shorter, the actual start date of the performance calculated is indicated.</em>
+<em>*Intended to be one, three, and five year performance, but if available history is shorter, the actual start date of the performance calculated is indicated.  YTD and 1-yr. are straight calculations whole 3-yr. and 5-yr. are CAGR adjusted.</em>

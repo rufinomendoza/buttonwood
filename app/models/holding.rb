@@ -137,6 +137,24 @@ class Holding < ActiveRecord::Base
     one_year_series[:trade_date].first
   end
 
+  # Year to Date
+
+  def end_of_last_year
+    read_historical(symbol, Time.new(Date.today.year - 1), Time.new(Date.today.year - 1, 12, 31, 23, 59, 59),{ :period => "d" }).first
+  end
+
+  def end_of_last_year_price
+    end_of_last_year[:adjusted_close].to_f
+  end
+
+  def end_of_last_year_date
+    end_of_last_year[:trade_date]
+  end
+
+  def ytd_performance
+    (today_price/end_of_last_year_price-1)*100
+  end
+
   # One Year
 
   def one_year_series

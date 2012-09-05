@@ -26,3 +26,8 @@ puts last
 
 test = first - last
 puts test.to_f
+
+
+goo = read_historical("AAPL", Time.new(Date.today.year - 1), Time.new(Date.today.year - 1, 12, 31, 23, 59, 59),{ :period => "d" })[:trade_date]
+
+puts goo.first
