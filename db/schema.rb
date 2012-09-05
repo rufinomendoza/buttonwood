@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904190533) do
+ActiveRecord::Schema.define(:version => 20120905040229) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(:version => 20120904190533) do
     t.datetime "updated_at",   :null => false
   end
 
+  add_index "holdings", ["portfolio_id"], :name => "index_holdings_on_portfolio_id"
+  add_index "holdings", ["security_id"], :name => "index_holdings_on_security_id"
+
   create_table "portfolios", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -46,10 +49,7 @@ ActiveRecord::Schema.define(:version => 20120904190533) do
     t.float    "cash"
   end
 
-  create_table "portfolios_users", :id => false, :force => true do |t|
-    t.integer "portfolio_id"
-    t.integer "user_id"
-  end
+  add_index "portfolios", ["user_id"], :name => "index_portfolios_on_user_id"
 
   create_table "sectors", :force => true do |t|
     t.string   "name"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(:version => 20120904190533) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "sectors", ["user_id"], :name => "index_sectors_on_user_id"
 
   create_table "securities", :force => true do |t|
     t.integer  "user_id"
@@ -68,6 +70,9 @@ ActiveRecord::Schema.define(:version => 20120904190533) do
     t.datetime "updated_at",           :null => false
     t.integer  "sector_id"
   end
+
+  add_index "securities", ["symbol"], :name => "index_securities_on_symbol"
+  add_index "securities", ["user_id"], :name => "index_securities_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
