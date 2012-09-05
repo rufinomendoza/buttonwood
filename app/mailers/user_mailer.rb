@@ -37,11 +37,10 @@ class UserMailer < ActionMailer::Base
     @stocks_yesterday = @stocks_yesterday.sum
     @assets_yesterday = @stocks_yesterday + @liquid
 
-    @stock_weight = @stocks/@assets*100
-
     if @assets > 0 || @assets_yesterday > 0
       @asset_chg = (@assets/@assets_yesterday-1)*100
       @stocks_chg = (@stocks/@stocks_yesterday-1)*100
+      @stock_weight = @stocks/@assets*100
     end
 
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
