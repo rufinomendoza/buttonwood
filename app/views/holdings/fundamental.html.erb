@@ -3,17 +3,17 @@
 <div class="navbar">
   <div class="navbar-inner">
     <ul class="nav">
-      <li class="active">
+      <li>
         <%= link_to 'Summary', holdings_url %>
       </li>
-      <li>
+      <li class="active">
         <%= link_to 'Fundamental', fundamental_url %>
       </li>
     </ul>
   </div>
 </div>
 
-<%= render 'summary' %>
+<%= render 'fund' %>
 
 <% else %>
 

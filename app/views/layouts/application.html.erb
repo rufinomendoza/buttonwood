@@ -20,10 +20,10 @@
         <%= link_to "Buttonwood", root_path, :class => "brand" %>
         <div class="nav pull-right">
           <ul class="nav">
-            <li><%= link_to 'Summary', holdings_path %></li>
+            <li><%= link_to 'Holdings', holdings_path %></li>
             <li><%= link_to 'Portfolios', portfolios_path %></li>
-            <li><%= link_to 'Sector', sectors_path %></li>
-            <li><%= link_to 'Coverage', securities_path %></li>
+            <li><%= link_to 'Sectors', sectors_path %></li>
+            <li><%= link_to 'Stocks', securities_path %></li>
             <% if current_user %>
             <li><%= link_to "Log out", log_out_path %></li>
             <% else %>

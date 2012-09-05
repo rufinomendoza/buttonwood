@@ -36,6 +36,11 @@ class HoldingsController < ApplicationController
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
   end
 
+
+  def fundamental
+    index
+  end
+
   # GET /holdings/1
   # GET /holdings/1.json
   def show

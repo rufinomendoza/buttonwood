@@ -44,7 +44,7 @@
   <% @holdings.each do |holding| %>
   <tr>
     <td><%= holding.sector_name_for_holdings %></td>
-    <td><%= holding.symbol %></td>
+    <td><%= link_to "#{holding.symbol}", "http://www.google.com/finance?q=#{holding.symbol}", :target => "_blank" %></td>
     
     <td style="text-align:right">
       <%= holding.weight(@assets) %>

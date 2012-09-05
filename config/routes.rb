@@ -9,13 +9,15 @@ ButtonwoodTwo::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   #root :to => 'holdings#index'
   root :to => 'home#index'
-
+  
   resources :users
   resources :sessions
   resources :holdings
   resources :securities
   resources :portfolios
   resources :password_resets
+  
+  match 'fundamental', :controller => 'holdings', :action => 'fundamental'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
