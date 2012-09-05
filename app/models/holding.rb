@@ -12,14 +12,17 @@ class Holding < ActiveRecord::Base
   validates :security_id, :uniqueness => { :scope => :portfolio_id }
   validates :shares_held, :presence => true
 
-  # Indicators
+
+  # Getting info from API
+
+  def summary
+    @summary ||= retrieve_from_yahoo
+  end
+
+  # Catch all method for calling Indicators from API
 
   def indicator(key)
     summary["#{key}"]
-  end
-
-  def name
-    indicator("Name")
   end
 
   def indicator_currency(key)
@@ -38,17 +41,29 @@ class Holding < ActiveRecord::Base
     Format.percent_dec(indicator(key).to_f)
   end
 
+  # Common methods across Holdings
+
+  def name
+    indicator("Name")
+  end
+
   def weight(assets)
     Format.percent_dec(dollar_value/assets*100)
   end
 
-  # Getting info from API
-
-  def summary
-    @summary ||= retrieve_from_yahoo
+  def portfolio_name
+    portfolio.name
   end
 
-  # Methods for table
+  def sector_name_for_holdings
+    security.sector_name
+  end
+
+  def symbol
+    security.symbol
+  end
+
+  # Methods for Summary
   
   def dollar_value_currency
     Format.currency(dollar_value)
@@ -62,28 +77,18 @@ class Holding < ActiveRecord::Base
     value = indicator("PreviousClose").to_f * shares_held.to_f
   end
 
-  # More Complicated Methods
-  def premium
-    Format.percent_dec((indicator("LastTradePriceOnly").to_f/security.our_price_target.to_f-1)*100)
-  end
-
-
-  # Importing these Security methods into Holding model
-
-  def sector_name_for_holdings
-    security.sector_name
-  end
-
-  def symbol
-    security.symbol
-  end
-
   def last_px
     indicator("LastTradePriceOnly").to_f
   end
 
+  # Methods for Fundamental Indicators
+
   def our_price_target
     Format.currency_dec(security.our_price_target)
+  end
+
+  def premium
+    Format.percent_dec((indicator("LastTradePriceOnly").to_f/security.our_price_target.to_f-1)*100)
   end
 
   def our_current_year_eps
@@ -92,10 +97,6 @@ class Holding < ActiveRecord::Base
 
   def our_next_year_eps
     Format.comma_dec(security.our_next_year_eps)
-  end
-
-  def portfolio_name
-    portfolio.name
   end
 
   def bv
@@ -126,7 +127,7 @@ class Holding < ActiveRecord::Base
     last_px/eps
   end
 
-  # Historical Data
+  # # Methods for Historical Data and Performance
   
   def today_price
     one_year_series[:adjusted_close].first.to_f
