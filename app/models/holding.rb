@@ -19,6 +19,11 @@ class Holding < ActiveRecord::Base
     @summary ||= retrieve_from_yahoo
   end
 
+  # def historical(symbol, start_date, end_date, options)
+  #   @historical ||= read_historical(symbol, start_date, end_date, options)
+  # end
+  # This does not work and has been commented out.  For later debugging.
+
   # Catch all method for calling Indicators from API
 
   def indicator(key)
