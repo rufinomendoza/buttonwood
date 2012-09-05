@@ -46,6 +46,6 @@ class UserMailer < ActionMailer::Base
 
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
     
-    mail to: user.email, :subject => "Portfolio Summary"
+    mail :to => user.email, :subject => "Portfolio Summary"
   end
 end
