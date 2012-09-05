@@ -8,9 +8,9 @@ class SecuritiesController < ApplicationController
 
   # GET /securities/1
   # GET /securities/1.json
-  def show
-    @security = Security.find(params[:id])
-  end
+  # def show
+  #   @security = Security.find(params[:id])
+  # end
 
   # GET /securities/new
   # GET /securities/new.json

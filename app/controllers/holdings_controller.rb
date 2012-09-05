@@ -48,9 +48,9 @@ class HoldingsController < ApplicationController
 
   # GET /holdings/1
   # GET /holdings/1.json
-  def show
-    @holding = Holding.find(params[:id])
-  end
+  # def show
+  #   @holding = Holding.find(params[:id])
+  # end
 
   # GET /holdings/new
   # GET /holdings/new.json

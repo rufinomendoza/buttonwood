@@ -4,32 +4,18 @@ class SectorsController < ApplicationController
   def index
     @sectors = Sector.where("user_id = ?", current_user.id)
     @sectors.sort_by!{|sector| sector.name}
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sectors }
-    end
   end
 
   # GET /sectors/1
   # GET /sectors/1.json
-  def show
-    @sector = Sector.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @sector }
-    end
-  end
+  # def show
+  #   @sector = Sector.find(params[:id])
+  # end
 
   # GET /sectors/new
   # GET /sectors/new.json
   def new
     @sector = Sector.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @sector }
-    end
   end
 
   # GET /sectors/1/edit
