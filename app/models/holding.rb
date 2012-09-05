@@ -1,6 +1,9 @@
 require 'json'
 require 'net/http'
 require 'bigdecimal'
+require 'open-uri'
+require 'ostruct'
+require 'csv'
 
 class Holding < ActiveRecord::Base
   attr_accessible :portfolio_id, :security_id, :shares_held
@@ -122,7 +125,71 @@ class Holding < ActiveRecord::Base
   def trailing_pe
     last_px/eps
   end
+
+  # Historical Data
   
+  def today_price
+    one_year_series[:adjusted_close].first.to_f
+  end
+
+  def today_date
+    one_year_series[:trade_date].first
+  end
+
+  # One Year
+
+  def one_year_series
+    read_historical(symbol, Time::now - 1.year, Time::now,{ :period => "d" })
+  end
+
+  def one_year_ago_price
+    one_year_series[:adjusted_close].last.to_f
+  end
+
+  def one_year_ago_date
+    one_year_series[:trade_date].last
+  end
+
+  def one_year_performance
+    (today_price/one_year_ago_price-1)*100
+  end
+
+  # Three Year
+
+  def three_year_series
+    read_historical(symbol, Time::now - 3.years, Time::now,{ :period => "d" })
+  end
+
+  def three_years_ago_price
+    three_year_series[:adjusted_close].last.to_f
+  end
+
+  def three_years_ago_date
+    three_year_series[:trade_date].last
+  end
+
+  def three_year_performance
+    (((today_price/three_years_ago_price)**(1.0/3.0))-1)*100
+  end
+
+  # Five Year
+
+  def five_year_series
+    read_historical(symbol, Time::now - 5.years, Time::now,{ :period => "d" })
+  end
+
+  def five_years_ago_price
+    five_year_series[:adjusted_close].last.to_f
+  end
+
+  def five_years_ago_date
+    five_year_series[:trade_date].last
+  end
+
+  def five_year_performance
+    (((today_price/five_years_ago_price)**(1.0/5.0))-1)*100
+  end
+
   private
 
   def retrieve_from_yahoo
@@ -135,5 +202,20 @@ class Holding < ActiveRecord::Base
       parsed = JSON.parse(pretty)["query"]["results"]
     end
     result = parsed["quote"]
+  end
+
+  def read_historical(symbol, start_date, end_date, options)
+     # got this from https://github.com/herval/yahoo-finance/blob/master/lib/yahoo_finance.rb
+     url = "http://ichart.finance.yahoo.com/table.csv?s=#{URI.escape(symbol)}&d=#{end_date.month-1}&e=#{end_date.day}&f=#{end_date.year}&g=#{options[:period]}&a=#{start_date.month-1}&b=#{start_date.day}&c=#{start_date.year}&ignore=.csv"
+     conn = open(url)
+     cols =
+       if options[:period] == :dividends_only
+         [:dividend_pay_date, :dividend_yield]
+       else
+         [:trade_date, :open, :high, :low, :close, :volume, :adjusted_close]
+       end
+     result = CSV.parse(conn.read, :headers => cols) #:first_row, :header_converters => :symbol)
+     result.delete(0)  # drop returned header
+     result
   end
 end

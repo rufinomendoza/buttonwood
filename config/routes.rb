@@ -18,6 +18,7 @@ ButtonwoodTwo::Application.routes.draw do
   resources :password_resets
   
   match 'fundamental', :controller => 'holdings', :action => 'fundamental'
+  match 'performance', :controller => 'holdings', :action => 'performance'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

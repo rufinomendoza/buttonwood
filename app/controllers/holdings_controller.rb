@@ -41,6 +41,10 @@ class HoldingsController < ApplicationController
     index
   end
 
+  def performance
+    index
+  end
+
   # GET /holdings/1
   # GET /holdings/1.json
   def show
