@@ -132,7 +132,7 @@ class Holding < ActiveRecord::Base
       resp = Net::HTTP.get_response(URI.parse(url))
       body = JSON.parse(resp.body)
       pretty = JSON.pretty_generate(body)
-      parsed = JSON.parse(pretty)["query"]["results"]
+      parsed = Rails.cache.fetch("#{symbol}", :expires_in => 5.minutes) {JSON.parse(pretty)["query"]["results"]}
     end
     result = parsed["quote"]
   end

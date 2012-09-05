@@ -9,7 +9,7 @@ class HoldingsController < ApplicationController
     
     @stocks = []
     @liquid = []
-    @holdings.each do |holding| 
+    @holdings.each do |holding|
       @stocks << holding.dollar_value
     end
     @portfolios.each do |portfolio| 
