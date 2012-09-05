@@ -17,6 +17,12 @@ require 'csv'
      # got this from https://github.com/herval/yahoo-finance/blob/master/lib/yahoo_finance.rb
   end
 
-foo = read_historical("AAPL", Time::now-(24*60*60*365), Time::now,{ :period => "d" })[:adjusted_close]
-puts foo.first
-puts foo.last
+foo = read_historical("AAPL", Time::now-(24*60*60*365), Time::now,{ :period => "d" })[:trade_date]
+first = Date.strptime(foo.first, '%Y-%m-%d')
+last = Date.strptime(foo.last, '%Y-%m-%d')
+
+puts first
+puts last
+
+test = first - last
+puts test.to_f

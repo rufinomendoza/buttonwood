@@ -169,7 +169,9 @@ class Holding < ActiveRecord::Base
   end
 
   def three_year_performance
-    (((today_price/three_years_ago_price)**(1.0/3.0))-1)*100
+    one = (Date.strptime(today_date, '%Y-%m-%d') - Date.strptime(one_year_ago_date, '%Y-%m-%d')).to_f
+    three = (Date.strptime(today_date, '%Y-%m-%d') - Date.strptime(three_years_ago_date, '%Y-%m-%d')).to_f
+    (((today_price/three_years_ago_price)**(one/three))-1)*100
   end
 
   # Five Year
@@ -187,7 +189,9 @@ class Holding < ActiveRecord::Base
   end
 
   def five_year_performance
-    (((today_price/five_years_ago_price)**(1.0/5.0))-1)*100
+    one = (Date.strptime(today_date, '%Y-%m-%d') - Date.strptime(one_year_ago_date, '%Y-%m-%d')).to_f
+    five = (Date.strptime(today_date, '%Y-%m-%d') - Date.strptime(five_years_ago_date, '%Y-%m-%d')).to_f
+    (((today_price/five_years_ago_price)**(one/five))-1)*100
   end
 
   private

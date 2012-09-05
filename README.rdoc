@@ -1,6 +1,8 @@
 == Getting Started
 
 1. Remember to create a cronjob for the mailer
+2. Aside from that, this is essentially ready to deploy.
 
+== Notes
 
-* Note that the files in lib root have been imported to the models and are just used to test pure Ruby
+* The files in lib root have been imported to the Models and are just used to test pure Ruby and are used as reference.
