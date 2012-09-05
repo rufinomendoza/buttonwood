@@ -1,5 +1,13 @@
+<% if @stocks > 0 || @stocks_yesterday > 0 %>
+
 <%= render :template => 'holdings/_fund' %>
 
 <%= render :template => 'holdings/_perf' %>
+
+<% else %>
+
+<p>You have no holdings.  Please visit our sit and <%= link_to 'add a holding', new_holding_url %>.</p>
+
+<% end %>
 
 <p>This message was automagically generated at <%= Time.current %></p>
