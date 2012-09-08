@@ -53,7 +53,7 @@ class Holding < ActiveRecord::Base
   end
 
   def weight(assets)
-    Format.percent_dec(dollar_value/assets*100)
+    dollar_value/assets*100
   end
 
   def portfolio_name

@@ -1,5 +1,8 @@
 <h1>Fundamental Indicators</h1>
 
+<p>Equity Slice Trailing P/E: <%= Format.comma_dec(@agg_pe) %></p>
+<p>Equity Slice Trailing P/B: <%= Format.comma_dec(@agg_pb) %></p>
+
 <table class="table table-condensed table-hover">
 
   <thead>
@@ -33,7 +36,7 @@
     <tr>
       <td><%= holding.sector_name_for_holdings %></td>
       <td><%= link_to "#{holding.symbol}", "http://www.google.com/finance?q=#{holding.symbol}", :target => "_blank" %></td>
-      <td style="text-align:right"><%= holding.weight(@assets) %></td>
+      <td style="text-align:right"><%= Format.percent_dec(holding.weight(@assets)) %></td>
       <td style="text-align:right"><%= Format.currency_dec(holding.last_px) %></td>
       <td style="text-align:right"><%= holding.our_price_target %></td>
       <td style="text-align:right"><%= holding.premium %></td>

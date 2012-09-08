@@ -38,7 +38,7 @@
       <%= holding.dollar_value_currency %>
     </td>
     <td style="text-align:right">
-      <%= holding.weight(@assets) %>
+      <%= Format.percent_dec(holding.weight(@assets)) %>
     </td>
     <td><%= link_to 'Edit', edit_holding_url(holding), :class => "btn btn-mini" %></td>
     <td><%= link_to 'Delete', holding, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini" %></td>

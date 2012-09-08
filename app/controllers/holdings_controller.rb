@@ -35,6 +35,28 @@ class HoldingsController < ApplicationController
       @stock_weight = @stocks/@assets*100
     end
 
+    @agg_eps = []
+    @agg_px = []
+    @agg_bv = []
+
+    @holdings.each do |holding|
+      wavg_eps = holding.eps * holding.weight(@stocks)
+      wavg_px = holding.last_px * holding.weight(@stocks)
+      wavg_bv =  holding.bv * holding.weight(@stocks)
+      @agg_eps << wavg_eps
+      @agg_px << wavg_px
+      @agg_bv << wavg_bv
+    end
+
+    @agg_eps = @agg_eps.sum
+    @agg_px = @agg_px.sum
+    @agg_bv = @agg_bv.sum
+
+    if @agg_bv > 0 || @agg_eps > 0
+      @agg_pe = @agg_px / @agg_eps
+      @agg_pb = @agg_px / @agg_bv
+    end
+
     @holdings.sort_by!{|holding| holding.weight(@assets)}.reverse!
 
   end

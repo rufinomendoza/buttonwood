@@ -29,7 +29,7 @@
         <td><%= holding.sector_name_for_holdings %></td>
         <td><%= link_to "#{holding.symbol}", "http://www.google.com/finance?q=#{holding.symbol}", :target => "_blank" %></td>
         <td style="text-align:right">
-          <%= holding.weight(@assets) %>
+          <%= Format.percent_dec(holding.weight(@assets)) %>
         </td>
         <td style="text-align:right"><%= Format.percent_dec(holding.ytd_performance) %></td>
         <td style="text-align:right"><%= Format.percent_dec(holding.one_year_performance) %></td>
