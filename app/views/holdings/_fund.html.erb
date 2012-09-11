@@ -1,8 +1,5 @@
 <h1>Fundamental Indicators</h1>
 
-<p>Equity Slice Trailing P/E: <%= Format.comma_dec(@agg_pe) %></p>
-<p>Equity Slice Trailing P/B: <%= Format.comma_dec(@agg_pb) %></p>
-
 <table class="table table-condensed table-hover">
 
   <thead>
@@ -56,7 +53,10 @@
       <td><b>Total Equity</b></td>
       <td></td>
       <td style="text-align:right"><b><%= Format.percent_dec(@stock_weight) %></b></td>
-      <td colspan = "11"></td>
+      <td colspan = "6"></td>
+      <td style="text-align:right"><b><%= Format.comma_dec(@agg_pb) %></b></td>
+      <td style="text-align:right"><b><%= Format.comma_dec(@agg_pe) %></b></td>
+      <td colspan = "3"></td>
     </tr>
 
     <% @portfolios.each do |portfolio| %>
