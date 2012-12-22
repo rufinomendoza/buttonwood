@@ -1,0 +1,17 @@
+<h1>Change Account Info</h1>
+
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-block alert-error">
+      <h4>Invalid Sign Up</h4>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.label :email %>
+    <%= f.text_field :email %><br />
+    <%= f.submit %>
+<% end %>

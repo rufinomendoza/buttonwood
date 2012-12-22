@@ -1,0 +1,79 @@
+<h1>Fundamental Indicators</h1>
+
+<table class="table table-condensed table-hover">
+
+  <thead>
+    <tr>
+      <th colspan = "6"></th>
+      <th colspan = "5" style="text-align:center; border-bottom:1px solid;">Trailing</th>
+      <th></th>
+      <th colspan = "3" style="text-align:center; border-bottom:1px solid;">Internal Forecasts</th>
+      <th></th>
+    </tr>
+    <tr>
+      <th>Sector</th>
+      <th>Symbol</th>
+      <th>Weight</th>
+      <th>Price</th>
+      <th>Target</th>
+      <th>Premium</th>
+      <th>Book</th>
+      <th>DPS</th>
+      <th>EPS</th>
+      <th>P/B</th>
+      <th>P/E</th>
+      <th> </th>
+      <th>FY1 EPS</th>
+      <th>FY2 EPS</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @holdings.each do |holding| %>
+    <tr>
+      <td><%= holding.sector_name_for_holdings %></td>
+      <td><%= link_to "#{holding.symbol}", "http://www.google.com/finance?q=#{holding.symbol}", :target => "_blank" %></td>
+      <td style="text-align:right"><%= Format.percent_dec(holding.weight(@assets)) %></td>
+      <td style="text-align:right"><%= Format.currency_dec(holding.last_px) %></td>
+      <td style="text-align:right"><%= holding.our_price_target %></td>
+      <td style="text-align:right"><%= holding.premium %></td>
+      <td style="text-align:right"><%= Format.currency_dec(holding.bv) %></td>
+      <td style="text-align:right"><%= Format.currency_dec(holding.dps) %></td>
+      <td style="text-align:right"><%= Format.currency_dec(holding.eps) %></td>
+      <td style="text-align:right"><%= Format.comma_dec(holding.trailing_pb) %></td>
+      <td style="text-align:right"><%= Format.comma_dec(holding.trailing_pe) %></td>
+      <td> </td>
+      <td style="text-align:right"><%= holding.our_current_year_eps %></td>
+      <td style="text-align:right"><%= holding.our_next_year_eps %></td>
+      <td> </td>
+    </tr>
+    <% end %>
+
+    <tr>
+      <td><b>Total Equity</b></td>
+      <td></td>
+      <td style="text-align:right"><b><%= Format.percent_dec(@stock_weight) %></b></td>
+      <td colspan = "6"></td>
+      <td style="text-align:right"><b><%= Format.comma_dec(@agg_pb) %></b></td>
+      <td style="text-align:right"><b><%= Format.comma_dec(@agg_pe) %></b></td>
+      <td colspan = "3"></td>
+    </tr>
+
+    <% @portfolios.each do |portfolio| %>
+    <tr>
+      <td>Cash</td>
+      <td></td>
+      <td style="text-align:right"><%= portfolio.weight(@assets) %></td>
+      <td colspan = "11"></td>
+    </tr>
+    <% end %>
+    
+    <tr>
+      <td><b>Total Assets</b></td>
+      <td></td>
+      <td style="text-align:right"><b><%= Format.percent_dec(100) %></b></td>
+      <td colspan = "11"></td>
+    </tr>
+  </tbody>
+
+</table>

@@ -25,10 +25,11 @@
             <li><%= link_to 'Sectors', sectors_path %></li>
             <li><%= link_to 'Coverage', securities_path %></li>
             <% if current_user %>
-            <li><%= link_to "Log out", log_out_path %></li>
+              <li><%= link_to "My Account", my_account_path %></li>
+              <li><%= link_to "Log out", log_out_path %></li>
             <% else %>
-            <li><%= link_to "Sign up", sign_up_path %></li>
-            <li><%= link_to "Log in", log_in_path %></li>
+              <li><%= link_to "Sign up", sign_up_path %></li>
+              <li><%= link_to "Log in", log_in_path %></li>
             <% end %>
           </ul>
         </div>

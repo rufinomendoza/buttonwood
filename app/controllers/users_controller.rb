@@ -16,16 +16,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.where("id = ?", current_user.id)
+  end
+
+  def edit
+    @user = User.find(current_user.id)
+  end
+
   def update
     @user = User.find(params[:id])
     respond_to do |format|
-      if @user.update_attributes(params[:holding])
-        format.html { redirect_to root_url, notice: 'User was successfully updated.' }
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to my_account_url, notice: 'Your account was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    cookies.delete(:auth_token)
+    respond_to do |format|
+      format.html { redirect_to home_url, :notice => "Sorry to see you go!" }
+      format.json { head :no_content }
     end
   end
 

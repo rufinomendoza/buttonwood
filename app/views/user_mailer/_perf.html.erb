@@ -1,0 +1,49 @@
+<h1>Stock Performance</h1>
+
+<table class="table table-condensed table-hover">
+
+  <thead>
+    <tr>
+      <th colspan = "3"></th>
+      <th colspan = "2" style="text-align:center; border-bottom:1px solid;">Stock Return</th>
+      <th></th>
+      <th colspan = "4" style="text-align:center; border-bottom:1px solid;">Stock CAGR</th>
+    </tr>
+    <tr>
+      <th>Sector</th>
+      <th>Symbol</th>
+      <th>Weight</th>
+      <th>YTD</th>
+      <th>1-Yr.</th>
+      <th></th>
+      <th>Start Date</th>
+      <th>3-Yr.</th>
+      <th>Start Date</th>
+      <th>5-Yr.</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @holdings.each do |holding| %>
+      <tr>
+        <td><%= holding.sector_name_for_holdings %></td>
+        <td><%= link_to "#{holding.symbol}", "http://www.google.com/finance?q=#{holding.symbol}", :target => "_blank" %></td>
+        <td style="text-align:right">
+          <%= Format.percent_dec(holding.weight(@assets)) %>
+        </td>
+        <td style="text-align:right"><%= Format.percent_dec(holding.ytd_performance) %></td>
+        <td style="text-align:right"><%= Format.percent_dec(holding.one_year_performance) %></td>
+        <td> </td>
+        <td style="text-align:right"><%= holding.three_years_ago_date %></td>
+        <td style="text-align:right"><%= Format.percent_dec(holding.three_year_performance) %></td>
+        <td style="text-align:right"><%= holding.five_years_ago_date %></td>
+        <td style="text-align:right"><%= Format.percent_dec(holding.five_year_performance) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  
+</table>
+
+<em><p>This table reflects raw stock performance, not trade time-weighted rates of return.</p>
+<p>YTD and one year stock returns are straight calculations without any time adjustment (end price ÷ begin price – 1).</p>
+<p>CAGRs are intended to be three and five year performance, but if available history is shorter, the earliest start date of the time series is used. The specific start dates for the CAGR calculations are also indicated.</p></em>
