@@ -72,4 +72,9 @@ class UserMailer < ActionMailer::Base
     
     mail :to => user.email, :subject => "Portfolio Summary"
   end
+
+  def gps
+    @user = User.where("email = ?", "rlmendoza@aol.com") 
+  end
+
 end
