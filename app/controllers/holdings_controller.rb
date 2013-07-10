@@ -7,23 +7,11 @@ class HoldingsController < ApplicationController
 
     @portfolios = Portfolio.where("user_id = ?", current_user.id)
     
-    @stocks = []
-    @liquid = []
-    @holdings.each do |holding|
-      @stocks << holding.dollar_value
-    end
-    @portfolios.each do |portfolio| 
-      @liquid << portfolio.cash
-    end
-    @stocks = @stocks.sum
-    @liquid = @liquid.sum 
-    @assets = @stocks + @liquid
+    @stocks = @holdings.sum { |holding| holding.dollar_value }
+    @liquid = @portfolios.sum { |portfolio| portfolio.cash }
+    @stocks_yesterday = @holdings.sum { |holding| holding.dollar_value_yesterday }
 
-    @stocks_yesterday = [] 
-    @holdings.each do |holding| 
-      @stocks_yesterday << holding.dollar_value_yesterday 
-    end
-    @stocks_yesterday = @stocks_yesterday.sum
+    @assets = @stocks + @liquid
     @assets_yesterday = @stocks_yesterday + @liquid
 
     if @stocks > 0 || @stocks_yesterday > 0
@@ -35,22 +23,17 @@ class HoldingsController < ApplicationController
       @stock_weight = @stocks/@assets*100
     end
 
-    @agg_eps = []
-    @agg_px = []
-    @agg_bv = []
-
-    @holdings.each do |holding|
+    @agg_eps = @holdings.sum do |holding|
       wavg_eps = holding.eps * holding.weight(@stocks)
-      wavg_px = holding.last_px * holding.weight(@stocks)
-      wavg_bv =  holding.bv * holding.weight(@stocks)
-      @agg_eps << wavg_eps
-      @agg_px << wavg_px
-      @agg_bv << wavg_bv
     end
 
-    @agg_eps = @agg_eps.sum
-    @agg_px = @agg_px.sum
-    @agg_bv = @agg_bv.sum
+    @agg_px = @holdings.sum do |holding|
+      wavg_px = holding.last_px * holding.weight(@stocks)
+    end
+
+    @agg_bv = @holdings.sum do |holding|
+      wavg_bv =  holding.bv * holding.weight(@stocks)
+    end
 
     if @agg_bv > 0 || @agg_eps > 0
       @agg_pe = @agg_px / @agg_eps

@@ -1,3 +1,3 @@
 task :gps => :environment do
-  puts @user.id
+  UserMailer.gps
 end
