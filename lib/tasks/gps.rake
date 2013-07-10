@@ -1,3 +1,3 @@
-task :gps => :environment do
-  UserMailer.gps
-end
+# task :gps => :environment do
+#   UserMailer.gps
+# end

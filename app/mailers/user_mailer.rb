@@ -73,20 +73,20 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Portfolio Summary"
   end
 
-  def gps
-    gps_id = User.where("email = ?", "rlmendoza@aol.com").first.id
-    portfolios = Portfolio.where("user_id =?", gps_id)
-    @gps_holdings = []
-    portfolios.each do |p|
-      holdings = Holding.where("portfolio_id = ?", p.id)
-      holdings.each {|h| @gps_holdings.append(h)}
-    end
+  # def gps
+  #   gps_id = User.where("email = ?", "rlmendoza@aol.com").first.id
+  #   portfolios = Portfolio.where("user_id =?", gps_id)
+  #   @gps_holdings = []
+  #   portfolios.each do |p|
+  #     holdings = Holding.where("portfolio_id = ?", p.id)
+  #     holdings.each {|h| @gps_holdings.append(h)}
+  #   end
 
-    puts @gps_holdings
-    # @gps_holdings = Holding.joins(:portfolio).where("user_id = ?", current_user_id)
-    # @gps_holdings.each do |holding|
-    #   puts holding.symbol
-    # end
-  end
+  #   puts @gps_holdings
+  #   # @gps_holdings = Holding.joins(:portfolio).where("user_id = ?", current_user_id)
+  #   # @gps_holdings.each do |holding|
+  #   #   puts holding.symbol
+  #   # end
+  # end
 
 end
